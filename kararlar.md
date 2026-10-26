@@ -94,3 +94,10 @@ Her karar: tarih · karar · neden. Yeni kararlar en alta eklenir. Haftalık top
 | Altın Set sayfası krallık kurallarıyla güncellendi | — |
 | Hikâye/kart üretici kodu ve Colab defterleri (hız ölçümü, gece üretimi) hazır | Hazırlık haftasının işi |
 | GitHub deposunu ve Drive klasörünü Mert açar | — |
+
+## 26 Ekim 2026 · Teknik durum kaydı
+
+- Çalışma alanı AI, Docs ve Game olarak üç bağımsız depoya ayrılmıştır; oyun kodu Godot + C# kullanır. Güncel kurulum ve rehberler bu duruma uyarlandı. Geçmiş Unity kararları tarihsel kayıt olarak korundu; ekip/öğretmen teyidi Game planındaki açık maddedir.
+- AI belge yolu kardeş Docs deposundan okunur; özel konum için `PROJE_DOCS_DIR` desteklenir.
+- Öğretmen promptu mevcut etiketli kart gövdesi sözleşmesine uyarlandı. Bu, doğrulayıcının veya JSON dönüştürücüsünün tamamlandığı anlamına gelmez.
+- Konu seçimi belgelenen yaklaşık %15 serbest oranına uyarlandı. Sabit tohumla devam etmede eski malzemelerin tekrarı, geçersiz grup boyutu ve bozuk dosyaya devam sorunları düzeltildi.

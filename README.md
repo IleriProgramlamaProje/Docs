@@ -1,40 +1,17 @@
-# ileri-programlama · Kaydır & Karar Ver
+# Kaydır & Karar Ver · Proje belgeleri
 
-Türk tarzı bir krallıkta geçen **kaydırmalı kart oyunu**. Kartları, ekibin **sıfırdan eğittiği küçük bir Türkçe dil modeli** oyun sırasında yazar.
+Türk tarzı krallıkta geçen kaydırmalı karar oyunu. Hedef, kartları ekibin sıfırdan eğiteceği küçük Türkçe dil modeliyle üretmek. Dört kişilik ekip; 26 Ekim–20 Aralık 2026.
 
-- **Oyun:** Unity (C#) → Android APK
-- **Yapay zekâ:** Python · öğretmen modelle veri üretimi → tokenizer → model (1M → 10M → 30M) → ince ayar → kart üretici
-- **Ders:** İleri Programlama · 4 kişilik ekip · 26 Ekim – 20 Aralık 2026
+| Depo | Görevi | Mevcut durum |
+| --- | --- | --- |
+| [Game](https://github.com/IleriProgramlamaProje/Game) | Godot + C# oyun istemcisi | Dört ekranlı sahne iskeleti ve sahne testi |
+| [AI](https://github.com/IleriProgramlamaProje/AI) | Python, veri üretimi, model eğitimi | Torbalar, promptlar, üretim döngüsü ve birim testleri |
+| [Docs](https://github.com/IleriProgramlamaProje/Docs) | Ortak kurallar ve plan | Bu depo |
 
-## Klasörler
+Model, tokenizer, filtre, kart sunucusu ve oynanabilir APK henüz tamamlanmış değildir. Belgelerde haftası belirtilen dosyalar çoğunlukla planlanan dosyalardır.
 
-| Klasör | İçinde ne var |
-| --- | --- |
-| `docs/` | Yol haritası, kararlar, kart biçimi, tema, ekip, raporlar |
-| `data/` | Küçük veriler: torbalar, altın set, örnekler (büyük veriler Drive / Hugging Face'te, bkz. `data/README.md`) |
-| `ai/` | Python kodu: veri üretimi, filtre, tokenizer, model, eğitim, kart üretici, ölçüm |
-| `unity/` | Unity projesi |
+Başlangıç sırası: [kurulum](kurulum.md) → [repo rehberi](repo_rehberi.md) → [kart biçimi](kart_formati.md) → [yol haritası](yol_haritasi.md). Güncel oyun uygulama görevleri [Game planında](https://github.com/IleriProgramlamaProje/Game/blob/main/docs/oyun_gelistirme_plani.md).
 
-**Önce oku:** `docs/yol_haritasi.md` → `docs/repo_rehberi.md` (hangi dosya ne işe yarar) → `docs/kart_formati.md` → `docs/kurulum.md`
+Ürün kuralları ve görev takvimi korunur. Eski motor araştırmaları `arsiv/`, geçmiş kararlar ve deneme raporları kendi tarihleriyle tutulur. Godot geçişi mevcut kodun durumudur; ekip/öğretmen teyidi Game planında açık takip maddesidir.
 
-## İlk kurulum
-
-Ayrıntı: `docs/kurulum.md`.
-
-```bash
-git clone <depo-adresi>
-cd ileri-programlama
-python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -r ai/requirements.txt
-pytest ai/testler        # testler geçmeli
-```
-Unity: herkes **birebir aynı sürümü** kullanır (`docs/kurulum.md`), `unity/` klasörünü Unity Hub'dan açar.
-
-## Çalışma kuralları (özet)
-
-- `main`'e doğrudan yazılmaz. Dal: `yz/<konu>` ya da `oyun/<konu>` → Pull Request → en az bir kişi onaylar.
-- Model ağırlıkları ve büyük veriler Git'e girmez.
-- Her dönem sonu (pazar) giden başkan `docs/raporlar/` altına raporunu yazar.
-- Kararlar `docs/kararlar.md`'ye yazılır.
-
-Ayrıntı: `docs/yol_haritasi.md` 3. bölüm.
+Çalışma düzeni: `yz/<konu>` veya `oyun/<konu>` dalı → PR → bir ekip üyesinin incelemesi. Büyük veri ve model ağırlıkları Drive/Hugging Face'te tutulur. Dönem raporlarını giden başkan `raporlar/` altına yazar.

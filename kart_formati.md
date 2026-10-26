@@ -5,7 +5,7 @@
 
 ## 1. Oyuncu ne görür?
 
-1. **Kart:** Başlıkta konuşanın unvanı + ismi ("Defterdar Yakup") ✅, portresi, metni.
+1. **Kart:** Başlıkta konuşanın unvanı + ismi ("Hazinedar Yakup") ✅, portresi, metni.
 2. **Kaydırma:** Sola ya da sağa sürükler. Sürüklerken seçenek yazısı ve sadece **oklar** görünür (Para ▼ Halk ▲) ✅.
 3. **Sonuç ekranı:** Sonuç cümlesi + **sayılar** (Para −10, Halk +5) + Devam Et ✅.
 
@@ -40,7 +40,7 @@
 
 Gösterge adları etikette küçük harf: `yonetim`, `halk`, `para`, `ordu` ✅ (görünen ad: **Yönetim**, Halk, Para, Ordu). Konuşan etiketi: unvanın küçük harf, alt çizgili hâli (`akıncı_beyi`) 💡.
 
-## 3. Unity'deki biçim (JSON) 💡
+## 3. Godot'taki biçim (JSON) 💡
 
 ```json
 {
@@ -56,7 +56,7 @@ Gösterge adları etikette küçük harf: `yonetim`, `halk`, `para`, `ordu` ✅ 
 
 - `kaynak`: `altin_set` · `model` · `ogretmen`
 - `lisans`: Altın set kartları `sadece_ders` ✅ (oyun yayınlanırsa çıkarılır)
-- Dönüşüm: `ai/ortak/kart_bicimi.py` (Python) · `unity/Assets/Scripts/Kartlar/Kart.cs` (Unity)
+- Planlanan dönüşüm (henüz uygulanmadı): `ai/ortak/kart_bicimi.py` (Python) · `Game/game/Betikler/Kartlar/Kart.cs` (Godot)
 
 ## 4. Doğrulayıcının kontrol listesi
 
@@ -70,3 +70,9 @@ Gösterge adları etikette küçük harf: `yonetim`, `halk`, `para`, `ordu` ✅ 
 8. Sonuç cümlesi var mı, boş değil mi?
 
 Geçmezse kart yeniden yazdırılır, yine olmazsa yedek desteden kart gelir ✅.
+
+## 5. Üretimin mevcut durumu · 26 Ekim
+
+Öğretmen promptu da `<kart>`, `<sol>`, `<sag>`, `<sonuc>` etiketleriyle ham kart gövdesi ister. Öğretmen durum satırını yazmaz; durum ve seçilen rol üretim kaydının `malzeme` alanındadır. Ham model çıktısı doğrulanmış kart sayılmaz; dönüştürücü ve içerik filtresi henüz uygulanmadı.
+
+Rol anahtarlarının kaynağı `tema.json` içindeki `karakterler[].anahtar` alanıdır. Yukarıdaki eski etiket örneğinde `akıncı_beyi`, JSON örneğinde `akinci_beyi` geçer; eğitim/gösterge durum satırının normalizasyonu iki ekipçe kesinleştirilmelidir. JSON önerisi, HTTP sözleşmesi ve bu normalizasyon tamamlanmış uygulama olarak kabul edilmez.

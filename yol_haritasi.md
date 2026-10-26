@@ -1,6 +1,6 @@
 # Yol Haritası · Kaydır & Karar Ver
 
-*Son güncelleme 25 Ekim 2026 · 8 hafta: 26 Ekim – 20 Aralık 2026*
+*Son güncelleme 26 Ekim 2026 · 8 hafta: 26 Ekim – 20 Aralık 2026*
 
 > **Okuma rehberi**
 > - ✅ = Birlikte konuşup **karar verdiğimiz** şeyler.
@@ -16,7 +16,7 @@
 2. Ekip ve roller
 3. Çalışma düzeni (Git, raporlar, toplantı)
 4. Repo yapısı (`ileri-programlama`)
-5. Biçimler (model kart biçimi, Unity JSON, Unity ↔ Python bağlantısı)
+5. Biçimler (model kart biçimi, Godot JSON, Godot ↔ Python bağlantısı)
 6. Haftalar (Hazırlık + 1–8)
 6b. Kişi kişi haftalık plan
 7. Her hafta süren işler (altın set, torbalar)
@@ -33,7 +33,7 @@
 | **Tema** | **Türk tarzı krallık.** "Kral" denir; göstergeler **Yönetim**, Halk, Para, Ordu ✅ (25 Ekim), dünya Türk-İslam kültüründe kalır |
 | **Oynanış** | **Düz kart** + kaydırma. Kartlar birbirinden bağımsız |
 | **Akış** | Açılış (cinsiyet seçimi, "Tahta Çık") → kart → kaydırma → sonuç ekranı → Devam Et → … → son ekranı |
-| **Kart başlığı** | Konuşanın unvanı + ismi ("Defterdar Yakup"). Oyun kodu koyar, model yazmaz |
+| **Kart başlığı** | Konuşanın unvanı + ismi ("Hazinedar Yakup"). Oyun kodu koyar, model yazmaz |
 | **Hitap** | Oyuncu cinsiyet seçer → "Beyim" / "Hatunum". Model `{hitap}` yazar, **gerektiğinde** (her kartta değil); oyun kodu değiştirir |
 | **İsimler** | Oyun kodunda rastgele, her yeni oyunda bir kez. Model isim görmez, kart içinde sadece unvan kullanır |
 | **Seçenekler** | Kartın derdine verilen iki farklı **karar** (emir/eylem cümlesi). Soyut başlık yok |
@@ -44,7 +44,7 @@
 | **Karakter–konu uyumu** | Dert, konuşanın işine uygun (Kadı ordu işi getirmez) |
 | **Görseller** | 23 rol + "Çift" cinsiyetli 9 rolün ikinci portresi = 32 portre, + açılış + 8 son + kazanma ≈ **42 resim**. Görsel üreticiyle, oyun ekibi |
 | **Model** | Sıfırdan: 1M → 10M → 30M. 5. hafta başında karar noktası, gerekirse B planı (LoRA) |
-| **Çalıştırma** | Ana hedef: Unity, dizüstündeki Python kart üreticisiyle konuşur. APK yedek desteyle çalışır. Telefona gömme (Sentis) zaman kalırsa |
+| **Çalıştırma** | Ana hedef: Godot, dizüstündeki Python kart üreticisiyle konuşur. APK yedek desteyle çalışır. Telefona gömme (isteğe bağlı ONNX fizibilitesi) zaman kalırsa |
 | **Öğretmen model** | **Gemma 4 E4B** ✅ (25 Ekim). Colab hız ölçümü 1. haftanın ilk işi, hedef veri miktarı ona göre |
 | **Ekip** | 2 haftalık dönemler, rol rotasyonu (2. bölüm). Koordinatör: **Mert** |
 
@@ -142,145 +142,20 @@ Dosya: `docs/raporlar/donem-{N}-{alan}.md` (ör. `docs/raporlar/donem-1-yapay-ze
 | Kod, küçük örnek veriler, belgeler | **GitHub** | Sürüm takibi |
 | Üretilen yüz binlerce hikâye | **Google Drive** (Colab'dan kolay erişim) + son hâli **Hugging Face** (özel veri seti) | Git'e sığmaz |
 | Tokenizer, model ağırlıkları | **Hugging Face** (özel depo) | Sürümlü, büyük dosyaya uygun |
-| Görseller, sesler | GitHub, **Git LFS** ile | Unity projesinin parçası |
+| Görseller, sesler | GitHub, **Git LFS** ile | Godot projesinin parçası |
 
 ---
 
-## 4. Repo yapısı · `ileri-programlama` 💡
+## 4. Repo yapısı · üç bağımsız depo
 
-> Önceki iskelet (`kaydir-karar-ver.zip`) iptal. Repo adı **`ileri-programlama`**. Aşağıdaki yapı sıfırdan önerildi; klasör ve dosya adlarının hepsi öneri.
-> Her dosyanın yanında hangi hafta oluşturulacağı yazıyor: **[H1]** = 1. hafta.
+```text
+çalışma-alanı/
+├── AI/           # ai/ Python kodu, data/ küçük veri
+├── Docs/         # ortak belgeler ve tema.json
+└── Game/         # game/ Godot projesi, docs/ oyun planı
+```
 
-```
-ileri-programlama/
-├── README.md                          [Hz] Proje ne, klasörler, ilk kurulum, çalışma kuralları
-├── .gitignore                         [Hz] Unity + Python; model ağırlıkları, büyük veri girmez
-├── .gitattributes                     [Hz] Görsel/ses → Git LFS; Unity sahneleri → Unity birleştirme aracı
-│
-├── docs/                              Belgeler
-│   ├── yol_haritasi.md                [Hz] Bu belge ✓ zip'te var
-│   ├── kararlar.md                    [Hz] Karar günlüğü: tarih · karar · neden ✓
-│   ├── ekip.md                        [Hz] Dönemler, roller, okuma sırası ✓
-│   ├── kurulum.md                     [Hz] Ne kurulacak, neden, nasıl + kontrol listesi ✓
-│   ├── repo_rehberi.md                [Hz] Hangi dosya ne işe yarar, içine ne yazılır ✓
-│   ├── kart_formati.md                [Hz] Model biçimi + Unity JSON biçimi (taslak ✓, 1. haftada kesinleşir)
-│   ├── api.md                         [H5] Unity ↔ Python bağlantı sözleşmesi
-│   ├── tema.json                      [Hz] Göstergeler, 8+1 son, karakterler, yasak kelimeler (taslak ✓)
-│   ├── rol_konu.json                  [H3] Hangi rol hangi konuları getirir
-│   ├── fikir_notlari.md               [Hz] İleride bakılacak fikirler (ör. kısıtlı üretim) ✓
-│   └── raporlar/
-│       ├── ogretmen_secimi.md         [Hz] Model denemesi + hız ölçümü sonuçları
-│       ├── donem-1-yapay-zeka.md      [H2]
-│       ├── donem-1-oyun.md            [H2]
-│       └── …                          (her dönem sonu iki rapor)
-│
-├── data/                              Küçük veriler (büyükler Drive/HF'de, 3.5)
-│   ├── README.md                      [H1] Hangi veri nerede, nasıl indirilir
-│   ├── torbalar/                      [Hz] Torba_Listesi.xlsx + dışa aktarımlar ✓ (ilk 30'ar madde)
-│   │   ├── kelimeler.csv              kelime, tur (isim/fiil/sıfat)
-│   │   ├── karakterler.csv            rol, konuşma tonu
-│   │   ├── olaylar.txt · ozellikler.txt · usluplar.txt · konular.txt
-│   │   └── yer.txt · zaman.txt · ruh_hali.txt · ikilem.csv
-│   ├── altin_set/                     Ekibin elle ürettiği kartlar
-│   │   ├── ham/                       [H1] Sohbet ekranından gelen, henüz okunmamış kartlar
-│   │   ├── iyi.jsonl                  [H1] Çapraz okumadan geçenler
-│   │   ├── sinav.jsonl                [H4] 200 kart, modele HİÇ gösterilmez
-│   │   └── yedek_deste.json           [H2] En iyi kartlar (hedef 600), Unity'ye kopyalanır
-│   ├── uretilen/ornekler/             [H1] Öğretmenin ürettiğinden küçük örnekler (tamamı Drive'da)
-│   └── edebiyat/                      [H2] Dede Korkut vb. lisansı temiz metinler (+ kaynak notu)
-│
-├── ai/                                Python · yapay zekâ
-│   ├── requirements.txt               [Hz]
-│   ├── ortak/
-│   │   ├── kart_bicimi.py             [H1] Model metni ↔ kart sözlüğü ↔ Unity JSON dönüşümleri
-│   │   └── ayarlar.py                 [H1] Yollar, sabitler (kademe değerleri ±5/10/15 vb.)
-│   ├── veri_uretimi/
-│   │   ├── torbalar.py                [Hz] Torbaları okur, rastgele çeker
-│   │   ├── istek_olusturucu.py        [Hz] Torbadan öğretmen promptu kurar (hikâye / kart)
-│   │   ├── promptlar/
-│   │   │   ├── hikaye.txt             [Hz]
-│   │   │   ├── kart.txt               [H1] Yeni kart biçimine göre (sonuç cümlesi, {hitap}, 3 kademe)
-│   │   │   └── uslup.txt              [Hz]
-│   │   ├── uretici.py                 [Hz] Öğretmen modeli çalıştırır, çıktıyı dosyaya yazar
-│   │   ├── hiz_olcumu.ipynb           [Hz] Colab: Gemma / Qwen saatte kaç hikâye
-│   │   └── uretim.ipynb               [H1] Colab: gece boyu toplu üretim
-│   ├── filtre/
-│   │   ├── filtre.py                  [H1] Ham üretimi temizler
-│   │   └── kurallar.py                [H1] Uzunluk, yasak kelime, nadir kelime, tekrar, biçim
-│   ├── tokenizer/
-│   │   ├── egit_tokenizer.py          [H2] Temiz veriden tokenizer eğitir
-│   │   └── incele.ipynb               [H2] Türkçe kelimeler nasıl bölünüyor, görselleştirme
-│   ├── veri_hazirlama/
-│   │   └── hazirla.py                 [H2] Metni token sayılarına çevirir → train.bin / val.bin
-│   ├── model/
-│   │   ├── model.py                   [H3] nanoGPT örnek alınarak, satır satır anlayarak
-│   │   └── boyutlar/
-│   │       ├── 1m.yaml                [H3]
-│   │       ├── 10m.yaml               [H3]
-│   │       └── 30m.yaml               [H4]
-│   ├── egitim/
-│   │   ├── egit.py                    [H3] Ön eğitim döngüsü (kayıt noktaları, kayıp grafiği)
-│   │   ├── egitim.ipynb               [H3] Colab defteri
-│   │   └── ince_ayar.py               [H5] Altın setle ince ayar
-│   ├── ornekleme/
-│   │   └── ornek_uret.py              [H3] Modelden metin üretir (sıcaklık, uzunluk)
-│   ├── kart_uretici/
-│   │   ├── uretici.py                 [H6] Oyun durumundan istem kurar, kart üretir
-│   │   ├── dogrulayici.py             [H6] Kontrol listesi (5.4)
-│   │   ├── kisitli_uretim.py          [H6] "Bekçi": biçimi yazarken zorlar (fikir_notlari.md)
-│   │   ├── sunucu.py                  [H6] Unity'nin bağlandığı yerel sunucu
-│   │   └── sahte_sunucu.py            [H5] Model yokken yedek desteden kart döner (Unity testi için)
-│   ├── olcum/
-│   │   ├── sinav.py                   [H4] 200 sınav kartıyla otomatik ölçüm
-│   │   ├── ogretmen_puanlama.py       [H4] Öğretmen model kartlara puan verir
-│   │   ├── ezber_testi.py             [H4] 4–5 kelimelik parçalar eğitim verisinde var mı?
-│   │   ├── ic_bakis.ipynb             [H7] Modelin içine bakış (dikkat başlıkları) · sunum slaytı
-│   │   └── sonuclar/                  Ölçüm sonuçları (.md, grafikler)
-│   ├── disa_aktarma/                  [H7] Zaman kalırsa: ONNX'e çevirme (Sentis için)
-│   └── testler/
-│       ├── test_kart_bicimi.py        [H1]
-│       ├── test_filtre.py             [H1]
-│       └── test_dogrulayici.py        [H6]
-│
-└── unity/                             Unity projesi (C#)
-    ├── ProjectSettings/ · Packages/
-    └── Assets/
-        ├── Scenes/
-        │   └── Oyun.unity             [H1] Tek sahne; ekranlar paneller hâlinde
-        ├── Scripts/
-        │   ├── Cekirdek/
-        │   │   ├── OyunYoneticisi.cs  [H1] Akış: açılış → kart → sonuç → … → son
-        │   │   ├── OyunDurumu.cs      [H1] 4 gösterge, yıl, cinsiyet, isimler
-        │   │   ├── Gostergeler.cs     [H1] Etki uygulama, 0/100 kontrolü
-        │   │   ├── SonKontrolu.cs     [H2] 8 son + kazanma sonu
-        │   │   ├── YilSayaci.cs       [H2] Kaç kartta bir yıl (denge testinde ayarlanır)
-        │   │   └── KayitSistemi.cs    [H3] Devam et, rekor
-        │   ├── Kartlar/
-        │   │   ├── Kart.cs            [H1] Kart veri sınıfı (Unity JSON biçimi)
-        │   │   ├── IKartKaynagi.cs    [H1] "Bana bir kart ver" arayüzü
-        │   │   ├── YedekDeste.cs      [H1] yedek_deste.json'dan kart verir
-        │   │   ├── ModelKartKaynagi.cs [H5] Python sunucusundan kart ister, olmazsa yedek desteye düşer
-        │   │   ├── KartSecici.cs      [H3] Rol–konu tablosuna göre kim konuşacak, konu ne
-        │   │   └── MetinYerlestirici.cs [H1] {hitap} → Beyim/Hatunum, başlığa unvan + isim
-        │   ├── Arayuz/
-        │   │   ├── AcilisEkrani.cs    [H1] Hikâye, cinsiyet seçimi, Tahta Çık
-        │   │   ├── KartGorunumu.cs    [H1] Başlık, portre, metin
-        │   │   ├── KaydirmaKontrolu.cs [H1] Sürükleme, seçenek yazısı, ok önizlemesi
-        │   │   ├── GostergeCubugu.cs  [H1] Üstteki 4 gösterge
-        │   │   ├── SonucEkrani.cs     [H2] Sonuç cümlesi + sayılar + Devam Et
-        │   │   └── SonEkrani.cs       [H2] Son resmi, metni, Yeniden Dene
-        │   └── Ag/
-        │       └── PythonBaglantisi.cs [H5] Yerel sunucuya istek (api.md)
-        ├── StreamingAssets/
-        │   ├── yedek_deste.json       [H2] data/altin_set/yedek_deste.json'un kopyası
-        │   ├── tema.json              [H1] docs/tema.json'un kopyası
-        │   └── rol_konu.json          [H3]
-        ├── Art/
-        │   ├── Portreler/             [H4] 15 rol
-        │   ├── Sonlar/                [H4] 8 son + kazanma
-        │   └── Arayuz/                [H4] Çerçeveler, simgeler
-        └── Audio/                     [H4]
-```
+Bu üst klasör bir Git deposu değildir. Gelecekte oluşturulacak dosyalar ve sorumlulukları [repo rehberinde](repo_rehberi.md), Godot hedef dizinleri ve kabul testleri [Game planında](https://github.com/IleriProgramlamaProje/Game/blob/main/docs/oyun_gelistirme_plani.md) bulunur. Aşağıdaki kısa `ai/` ve `data/` yolları AI deposuna; `docs/` atıfları Docs deposunun köküne aittir. Görev tablosunda bir dosyanın yazması, uygulanmış olduğu anlamına gelmez.
 
 ---
 
@@ -304,7 +179,7 @@ ileri-programlama/
 - Her seçenekten sonra bir `<sonuc>` cümlesi. ✅ (etiket adı öneri)
 - Durum satırı: **4 gösterge + konuşan + konu** ✅. Kartların ~%15'inde `<konu:serbest>`: model derdi kendi seçer ✅.
 
-### 5.2 Unity'deki biçim (JSON) 💡
+### 5.2 Godot'taki biçim (JSON) 💡
 
 ```json
 {
@@ -318,13 +193,13 @@ ileri-programlama/
 }
 ```
 - `kaynak`: `altin_set` · `model` · `ogretmen`. `lisans`: altın set "sadece ders" diye etiketlenir ✅ (oyun yayınlanırsa çıkarılır).
-- Dönüşümü `ai/ortak/kart_bicimi.py` yapar, Unity'de `Kart.cs` okur.
+- Dönüşümü `ai/ortak/kart_bicimi.py` yapar, Godot'ta `Kart.cs` okur.
 
-### 5.3 Unity ↔ Python bağlantısı 💡
+### 5.3 Godot ↔ Python bağlantısı 💡
 
 | | |
 | --- | --- |
-| **Yöntem** | Python, dizüstünde **yerel bir sunucu** açar (`localhost:8000`). Unity `UnityWebRequest` ile istek atar. İnternet gerekmez ✅ |
+| **Yöntem** | Python, dizüstünde **yerel bir sunucu** açar (`localhost:8000`). Godot `HttpRequest` ile istek atar. İnternet gerekmez ✅ |
 | **İstek** | `POST /kart` · gövde: `{yonetim, halk, para, ordu, konu, konusan}` |
 | **Cevap** | 5.2'deki JSON |
 | **Hata** | Sunucu yoksa, 3 sn içinde cevap gelmezse ya da kart doğrulayıcıdan geçmezse → **yedek deste** ✅ |
@@ -350,11 +225,11 @@ ileri-programlama/
 | # | Görev | Kim | Dosya | Bitti sayılır | Bağlı |
 | --- | --- | --- | --- | --- | --- |
 | Hz.1 | GitHub'da **`ileri-programlama`** deposunu aç, `ileri-programlama.zip`'teki iskeleti yükle; Drive klasörünü aç ✅ karar | Mert | Zip'in tamamı | Herkes klonlayabiliyor | — |
-| Hz.2 | Kurulum haftasının eksikleri (Unity aynı sürüm, Python, Colab GPU) | Herkes | `docs/kurulum.md` | `Kurulum_Haftasi.md`'deki "bitti" listesi tamam | — |
+| Hz.2 | Kurulum haftasının eksikleri (Godot aynı sürüm, Python, Colab GPU) | Herkes | `docs/kurulum.md` | `kurulum.md`'deki "bitti" listesi tamam | — |
 | Hz.3 | **Öğretmen model hız ölçümü** (Gemma 4 E4B, Colab). Defter hazır ✓ | Mert (1. haftanın başı) | `ai/veri_uretimi/hiz_olcumu.ipynb` | "Saatte kaç hikâye / kart" sayısı var | — |
 | Hz.4 | ✅ **Öğretmen modeli seçildi:** Gemma 4 E4B | — | `docs/raporlar/ogretmen_secimi.md` | — | — |
 | Hz.5 | ✓ **Hikâye/kart üretici kodu yazıldı** (torba → prompt → öğretmen → JSONL, kaldığı yerden devam) + testler. Colab'da ilk gerçek çalıştırma 1. hafta | Claude / Mert | `ai/veri_uretimi/*`, `ai/testler/test_veri_uretimi.py` | Testler geçiyor ✓; Colab'da 20 hikâye üretti | — |
-| Hz.6 | Torbalar sürüyor | Herkes | `Torba_Listesi.xlsx` | — | — |
+| Hz.6 | Torbalar sürüyor | Herkes | Drive’daki `Torba_Listesi` tablosu | — | — |
 
 ### 1. hafta · 26 Ekim – 1 Kasım · Dönem 1
 
@@ -364,7 +239,7 @@ ileri-programlama/
 | # | Görev | Dosya | Bitti sayılır |
 | --- | --- | --- | --- |
 | 1.0a | ✅ **Kart biçimi kesinleşti** (25 Ekim). İki ekip okuyup bilgi edinir | `docs/kart_formati.md` | Herkes okudu |
-| 1.0b | ✅ Karakterler hazır (23 rol + kimlik kartı). Bu hafta: **kör tahmin testi** (öğretmene her rolden 3 kart yazdır, isimsiz oku, "kim söyledi?" tahmin et; tutmayan rolün kimliğini keskinleştir) | `docs/tema.json`, `data/torbalar/karakterler.csv` | 15 (ya da 16) rol, unvan + konuşma tonu |
+| 1.0b | ✅ Karakterler hazır (23 rol + kimlik kartı). Bu hafta: **kör tahmin testi** (öğretmene her rolden 3 kart yazdır, isimsiz oku, "kim söyledi?" tahmin et; tutmayan rolün kimliğini keskinleştir) | `docs/tema.json`, `data/torbalar/karakterler.csv` | 23 rol, unvan + kimlik kartı ve kör tahmin sonuçları |
 | 1.0c | Teslim sorumlusunu kura ile seç (çarşamba toplantısı) | `docs/ekip.md` | Yazıldı |
 | 1.0d | Karar günlüğünü güncel tut (bugüne kadarkiler zip'te yazılı) | `docs/kararlar.md` | Toplantı kararları eklendi |
 
@@ -381,7 +256,7 @@ ileri-programlama/
 **Oyun ekibi** (Kara + Muhammet)
 | # | Görev | Dosya | Bitti sayılır | Bağlı |
 | --- | --- | --- | --- | --- |
-| 1.7 | Unity projesi, tek sahne, paneller | `unity/Assets/Scenes/Oyun.unity` | Proje herkeste açılıyor | Hz.2 |
+| 1.7 | Godot projesi, tek sahne, paneller | `Game/game/Sahneler/Oyun.tscn` | Proje herkeste açılıyor | Hz.2 |
 | 1.8 | Oyun durumu + göstergeler | `OyunDurumu.cs`, `Gostergeler.cs`, `GostergeCubugu.cs` | 4 gösterge ekranda, etki uygulanınca değişiyor | — |
 | 1.9 | Kart verisi + yedek deste okuma | `Kart.cs`, `IKartKaynagi.cs`, `YedekDeste.cs` | Elle yazılmış 10 kartlık JSON'dan kart geliyor | 1.0a |
 | 1.10 | Kart ekranı | `KartGorunumu.cs`, `MetinYerlestirici.cs` | Başlık (unvan + isim), metin, `{hitap}` yerine Beyim/Hatunum | 1.9 |
@@ -409,7 +284,7 @@ ileri-programlama/
 | 2.5 | **Sonuç ekranı** | `SonucEkrani.cs` | Sonuç cümlesi + sayılar (Para −10, Halk +5) + Devam Et | 1.13 |
 | 2.6 | **8 son** + Yeniden Dene | `SonKontrolu.cs`, `SonEkrani.cs` | Her göstergenin 0'ı ve 100'ü ayrı son açıyor (şimdilik yer tutucu resim) | 1.8 |
 | 2.7 | Yıl sayacı | `YilSayaci.cs` | Her N kartta yıl artıyor (N şimdilik 5) | 1.13 |
-| 2.8 | Yedek desteyi Unity'ye bağla | `StreamingAssets/yedek_deste.json` | Altın setten gelen kartlarla oynanıyor | 7.1 |
+| 2.8 | Yedek desteyi Godot'ya bağla | `Veri/yedek_deste.json` | Altın setten gelen kartlarla oynanıyor | 7.1 |
 | 2.9 | **Modelsiz tam oyun** | — | Açılıştan bir sona kadar hatasız oynanıyor | 2.5–2.8 |
 
 **Dönem 1 sonu (pazar 8 Kasım):** 📄 Raporlar atılır · `donem-1-yapay-zeka.md` (Mert) · `donem-1-oyun.md` (Kara)
@@ -455,8 +330,8 @@ ileri-programlama/
 **Oyun ekibi** (Muhammet + Mert)
 | # | Görev | Dosya | Bitti sayılır | Bağlı |
 | --- | --- | --- | --- | --- |
-| 4.7 | **Görseller** (tek tarz tarifi ile) | `Art/Portreler/`, `Art/Sonlar/` | ~42 resim (32 portre + 10), aynı tarzda; tarz tarifi `docs/`'ta yazılı | 1.0b |
-| 4.8 | Arayüz + ses | `Art/Arayuz/`, `Audio/` | Görseldeki taslağa yakın görünüm | — |
+| 4.7 | **Görseller** (tek tarz tarifi ile) | `Gorseller/Portreler/`, `Gorseller/Sonlar/` | ~42 resim (32 portre + 10), aynı tarzda; tarz tarifi `docs/`'ta yazılı | 1.0b |
+| 4.8 | Arayüz + ses | `Gorseller/Arayuz/`, `Sesler/` | Görseldeki taslağa yakın görünüm | — |
 | 4.9 | **Denge testi** | `docs/raporlar/denge_testi.md` | Ekip 10+ oyun oynadı; hedef süre, kaç kartta bir yıl, kademe değerleri belirlendi | 3.10 |
 
 **Kararlar:** Hedef süre · kaç kartta bir yıl (denge testinden) · **oyunun adı**
@@ -480,7 +355,7 @@ ileri-programlama/
 **Oyun ekibi** (Mert + Sokul)
 | # | Görev | Dosya | Bitti sayılır | Bağlı |
 | --- | --- | --- | --- | --- |
-| 5.4 | Python bağlantısı | `PythonBaglantisi.cs`, `ModelKartKaynagi.cs` | Unity sahte sunucudan kart alıyor | 5.3 |
+| 5.4 | Python bağlantısı | `PythonBaglantisi.cs`, `ModelKartKaynagi.cs` | Godot sahte sunucudan kart alıyor | 5.3 |
 | 5.5 | Yedek desteye düşme | `ModelKartKaynagi.cs` | Sunucu kapalıyken oyun takılmadan yedek desteyle devam ediyor | 5.4 |
 | 5.6 | Bekleme ekranı | `KartGorunumu.cs` | Kart gelirken kısa bir "yazılıyor…" görünümü | 5.4 |
 
@@ -517,7 +392,7 @@ ileri-programlama/
 | 7.1y | **Son ölçüm turu** (sınav, öğretmen-puanlama, ezber, oyunda doğrulayıcıdan geçme oranı) | `ai/olcum/sonuclar/` | Tablo + grafikler | 6.4 |
 | 7.2y | İyileştirme (ölçümün gösterdiği en büyük sorun) | — | Öncesi/sonrası ölçüldü | 7.1y |
 | 7.3y | Modelin içine bakış (sunum için) | `ai/olcum/ic_bakis.ipynb` | En az bir anlaşılır dikkat başlığı görseli | 4.1 |
-| 7.4y | *Zaman kalırsa:* ONNX'e çevirme + Sentis denemesi | `ai/disa_aktarma/` | Model Unity içinde bir kart üretti | 6.4 |
+| 7.4y | *Zaman kalırsa:* ONNX'e çevirme + Godot/ONNX fizibilitesi | `ai/disa_aktarma/` | Model Godot içinde bir kart üretti | 6.4 |
 
 **Oyun ekibi** (Sokul + Kara)
 | # | Görev | Dosya | Bitti sayılır | Bağlı |
@@ -533,7 +408,7 @@ ileri-programlama/
 | --- | --- | --- | --- | --- |
 | 8.1 | Cila (son görsel/ses düzeltmeleri) | Oyun | — | — |
 | 8.2 | **Son APK** (yedek desteyle) | Oyun + teslim sorumlusu | — | Telefonda hatasız oynanıyor |
-| 8.3 | Dizüstü sunum kurulumu (Unity + Python sunucu, internetsiz) | YZ + Oyun | `docs/kurulum.md` | Sıfırdan kurulup çalıştırıldı |
+| 8.3 | Dizüstü sunum kurulumu (Godot + Python sunucu, internetsiz) | YZ + Oyun | `docs/kurulum.md` | Sıfırdan kurulup çalıştırıldı |
 | 8.4 | **Sunumun model bölümü** (merdiven 1M→30M, ölçüm grafikleri, modelin içi) | YZ ekibi (Muhammet + Mert) ✅ | sunum | Bölüm bitti, provası yapıldı |
 | 8.5 | **Sunumun oyun bölümü** (oynanış, canlı gösterim, test sonuçları) | Oyun ekibi (Sokul + Kara) ✅ | sunum | Bölüm bitti, provası yapıldı |
 | 8.5b | Sunumu birleştir, tam prova | Herkes | sunum | Baştan sona bir prova yapıldı |
@@ -566,7 +441,7 @@ ileri-programlama/
 | **4** (16 – 22 Kas) | Oyun · yardımcı (+ Muhammet) | 4.7–4.9: Görseller, arayüz, ses, denge testi | Denge testinde oyna (herkes) · Koordinatör |
 | **5** (23 – 29 Kas) | Oyun · **başkan** (+ Sokul) | 5.4–5.6: Python bağlantısı, yedek desteye düşme, bekleme ekranı | 🔄 Pazartesiden itibaren Sokul'a devir anlatır · Karar noktası toplantısı (çar 25 Kas) · Koordinatör |
 | **6** (30 Kas – 6 Ara) | Oyun · **başkan** (+ Sokul) | 6.5–6.6: Gerçek modelle bağlantı, model kartlarının görünümü | 📄 Pazar raporu: `donem-3-oyun.md` · Koordinatör |
-| **7** (7 – 13 Ara) | Yapay Zekâ · yardımcı (+ Muhammet) | 7.0y–7.4y: İnce ayar 2. tur, son ölçüm, iyileştirme, modelin içi, (Sentis) | 🔄 Yeni geldi; Muhammet'ten devir alır · Oyun testi için tanıdık getir · Koordinatör |
+| **7** (7 – 13 Ara) | Yapay Zekâ · yardımcı (+ Muhammet) | 7.0y–7.4y: İnce ayar 2. tur, son ölçüm, iyileştirme, modelin içi, (isteğe bağlı ONNX fizibilitesi) | 🔄 Yeni geldi; Muhammet'ten devir alır · Oyun testi için tanıdık getir · Koordinatör |
 | **8** (14 – 20 Ara) | Yapay Zekâ · yardımcı (+ Muhammet) | 8.3, 8.4: Dizüstü sunum kurulumu, sunumun model bölümü | Tam prova (herkes) · Koordinatör |
 
 ### Sokul
@@ -588,7 +463,7 @@ ileri-programlama/
 | Hafta | Alan · rol | Görevler (6. bölümdeki numaralar) | Ek görev |
 | --- | --- | --- | --- |
 | Hazırlık | — | Hz.2 kurulum eksikleri · Hz.6 torbalar | — |
-| **1** (26 Eki – 1 Kas) | Oyun · **başkan** (+ Muhammet) | 1.7–1.13: Unity sahnesi, göstergeler, kart ekranı, kaydırma, açılış, oyun akışı | 1.0a–1.0d (herkes) |
+| **1** (26 Eki – 1 Kas) | Oyun · **başkan** (+ Muhammet) | 1.7–1.13: Godot sahnesi, göstergeler, kart ekranı, kaydırma, açılış, oyun akışı | 1.0a–1.0d (herkes) |
 | **2** (2 – 8 Kas) | Oyun · **başkan** (+ Muhammet) | 2.5–2.9: Sonuç ekranı, 8 son, yıl sayacı, yedek deste, modelsiz tam oyun | 📄 Pazar raporu: `donem-1-oyun.md` |
 | **3** (9 – 15 Kas) | Yapay Zekâ · yardımcı (+ Sokul) | 3.1–3.6: Üretimi bitirme, model kodu, eğitim döngüsü, 1M, 10M | Gece üretimi (Colab) · 🔄 Yeni geldi; Sokul'dan devir alır |
 | **4** (16 – 22 Kas) | Yapay Zekâ · yardımcı (+ Sokul) | 4.1–4.6: 30M, sınav seti, ölçüm araçları, karşılaştırma | Denge testinde oyna (herkes) |
@@ -602,13 +477,13 @@ ileri-programlama/
 | Hafta | Alan · rol | Görevler (6. bölümdeki numaralar) | Ek görev |
 | --- | --- | --- | --- |
 | Hazırlık | — | Hz.2 kurulum eksikleri · Hz.6 torbalar | — |
-| **1** (26 Eki – 1 Kas) | Oyun · yardımcı (+ Kara) | 1.7–1.13: Unity sahnesi, göstergeler, kart ekranı, kaydırma, açılış, oyun akışı | 1.0a–1.0d (herkes) |
+| **1** (26 Eki – 1 Kas) | Oyun · yardımcı (+ Kara) | 1.7–1.13: Godot sahnesi, göstergeler, kart ekranı, kaydırma, açılış, oyun akışı | 1.0a–1.0d (herkes) |
 | **2** (2 – 8 Kas) | Oyun · yardımcı (+ Kara) | 2.5–2.9: Sonuç ekranı, 8 son, yıl sayacı, yedek deste, modelsiz tam oyun |  |
 | **3** (9 – 15 Kas) | Oyun · **başkan** (+ Mert) | 3.7–3.10: Rol–konu tablosu, kazanma sonu, kayıt, ilk APK | 🔄 Pazartesiden itibaren Mert'e devir anlatır |
 | **4** (16 – 22 Kas) | Oyun · **başkan** (+ Mert) | 4.7–4.9: Görseller, arayüz, ses, denge testi | 📄 Pazar raporu: `donem-2-oyun.md` · Denge testinde oyna (herkes) |
 | **5** (23 – 29 Kas) | Yapay Zekâ · yardımcı (+ Kara) | 5.1–5.3: İnce ayar 1. tur, api.md, sahte sunucu | 🔄 Yeni geldi; Kara'dan devir alır · Karar noktası toplantısı (çar 25 Kas) |
 | **6** (30 Kas – 6 Ara) | Yapay Zekâ · yardımcı (+ Kara) | 6.1–6.4: Kart üretici, doğrulayıcı, kısıtlı üretim, sunucu |  |
-| **7** (7 – 13 Ara) | Yapay Zekâ · **başkan** (+ Mert) | 7.0y–7.4y: İnce ayar 2. tur, son ölçüm, iyileştirme, modelin içi, (Sentis) | 🔄 Pazartesiden itibaren Mert'e devir anlatır · Oyun testi için tanıdık getir |
+| **7** (7 – 13 Ara) | Yapay Zekâ · **başkan** (+ Mert) | 7.0y–7.4y: İnce ayar 2. tur, son ölçüm, iyileştirme, modelin içi, (isteğe bağlı ONNX fizibilitesi) | 🔄 Pazartesiden itibaren Mert'e devir anlatır · Oyun testi için tanıdık getir |
 | **8** (14 – 20 Ara) | Yapay Zekâ · **başkan** (+ Mert) | 8.3, 8.4: Dizüstü sunum kurulumu, sunumun model bölümü | 📄 Pazar raporu: `donem-4-yapay-zeka.md` · Tam prova (herkes) |
 
 ---
@@ -638,7 +513,7 @@ ileri-programlama/
 | Colab birimleri bitiyor | Birim takibi (her hafta) | 30M'den önce 10M'le ince ayar denemesi; eğitim süresi kısaltılır |
 | 30M kötü yazıyor | 4.6 ölçümü | **B planı:** hazır Türkçe bir modele LoRA (ayrıntısı 5. hafta toplantısında; "sıfırdan mı, ince ayar mı" konusu da o zaman açılır) |
 | Model biçimi bozuyor | Doğrulayıcıdan geçme oranı düşük | Kısıtlı üretim (6.3) + yedek deste |
-| Unity ↔ Python bağlantısı sorunlu | 5. hafta | Sahte sunucuyla erken test; olmazsa APK yedek desteyle teslim edilebilir |
+| Godot ↔ Python bağlantısı sorunlu | 5. hafta | Sahte sunucuyla erken test; olmazsa APK yedek desteyle teslim edilebilir |
 | Model ne çıkarsa çıksın | — | **Oyun her durumda yedek desteyle teslim edilebilir** ✅ |
 
 ---
