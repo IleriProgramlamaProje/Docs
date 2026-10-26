@@ -7,6 +7,82 @@
 
 ---
 
+## 26 Ekim 2026 · Araştırılmış sürüm önerisi 💡
+
+**Durum:** Aşağıdakiler teknik öneridir; ekip kararı olarak onaylanmış değildir. Unity henüz kurulup çalıştırılmadı, APK testi yapılmadı. Önce dört bilgisayarda boş proje açma + telefonda APK denemesi, ardından sürümü sabitleme yapılmalı.
+
+| Bileşen | Öneri | Gerekçe / sınır |
+| --- | --- | --- |
+| Unity Editor | **Unity 6.3 LTS `6000.3.27f1`** | 20 Ekim 2026 tarihli kararlı sürüm; 6.3 LTS desteği Aralık 2027'ye kadar. 6.0 LTS'nin standart desteği Ekim 2026'da bitiyor. Bu kısa teslim projesinde yeni Update/alpha/beta serilerine ihtiyaç yok. |
+| Unity Hub | Kurulum günündeki **kararlı Hub** | Hub sürümü proje biçimini belirlemez; birebir eşit olması gereken Editor sürümüdür. |
+| Android araçları | **Editor ile Hub'dan gelen araçlar** | Android Build Support + Android SDK & NDK Tools + OpenJDK birlikte kurulmalı; sistem Java/Android kurulumuna elle bağlanmamalı. |
+| Android NDK / Java | **NDK r27c `27.2.12479018` / OpenJDK 17** | Unity 6000.3 resmî bağımlılık tablosuyla uyumlu. |
+| Android SDK araçları | **Build Tools 36.0.0, Command-line Tools 16, Platform Tools 37.0.1** | Resmî tabloda 6000.3.26f1 ve sonrası için dağıtılan sürümler. Bunlar minimum/target Android API seviyesi değildir; API seviyesi telefon ve dağıtım hedefiyle ayrıca belirlenir. |
+| C# / API profili | **Unity'nin C# 9 derleyicisi / .NET Standard 2.1** | Unity kendi derleme ortamını kullanır. Bilgisayardaki .NET 10 SDK, Unity'yi .NET 10 uygulamasına dönüştürmez; yeni C#/.NET özellikleri varsayılmamalı. |
+| Python | **3.11 serisi; bu bilgisayarda `3.11.17`** | Rehberin mevcut tercihiyle uyumlu, mevcut testler geçti. 3.11 güvenlik desteği Ekim 2027'ye kadar; en yeni Python'a geçmek için şu aşamada gerekçe yok. Her AI deposunda ayrı `.venv` kullanılır. |
+| PyTorch | **Yerel geliştirmede `2.14.1` CPU** | Resmî kararlı sürüm notları mevcut; bu bilgisayarda `2.14.1+cpu` importu doğrulandı. Colab GPU ortamına CPU paketi kurulmaz. |
+| Python yardımcı paketleri | Aşağıdaki **yerel doğrulanmış başlangıç sürümleri** | Mevcut 4 test + import + bağımlılık kontrolü geçti; henüz model eğitimi/sunucu uçtan uca testi yapıldığı anlamına gelmez. |
+| Git / Git LFS | İşletim sisteminin güncel kararlı paketleri | Birebir aynı yama sürümü gerekmez. Unity deposunda LFS etkin olmalı. |
+| Editör | Zed kullanılabilir; ortak rehber için VS Code kararlı sürüm alternatif | Editör aynı olmak zorunda değil. Esas doğrulama Unity derlemesi ve Python testleridir. |
+
+### Yerel Python başlangıç sürümleri
+
+26 Ekim'de kurulan ve kontrol edilen doğrudan bağımlılıklar:
+
+```text
+torch==2.14.1              # Bu bilgisayarda CPU varyantı: 2.14.1+cpu
+numpy==2.4.6
+tokenizers==0.23.3
+pyyaml==6.0.3
+tqdm==4.70.1
+matplotlib==3.11.2
+openpyxl==3.1.5
+pytest==9.1.1
+fastapi==0.162.0
+uvicorn==0.54.0
+```
+
+Notebook için ayrıca `ipykernel==7.4.0`, Hugging Face istemcisi için `huggingface_hub==2.3.0` kuruldu. Bu liste tam, platformlar arası kilit dosyası değildir. Ekip onayından sonra AI deposunda işletim sistemi/CPU-GPU ayrımını gözeten bağımlılık sabitlemesi yapılmalı; bu araştırmada `AI/ai/requirements.txt` değiştirilmedi.
+
+**Colab ayrı ortamdır:** Mevcut notebook'lar `vllm`, `transformers`, `accelerate` paketlerini `-U` ile kuruyor. Bu, tekrar üretilebilir değildir. Bunları yerel CPU ortamına eklemiyoruz. Öğretmen modeliyle gerçek GPU denemesi geçtikten sonra birlikte çözümlenen sürümler notebook'ta sabitlenmeli; yalnızca yerel birim testine bakarak GPU sürümü önerilmemeli.
+
+### Linux ve proje tercihi
+
+- Unity 6.3 Editor için resmî Linux desteği **Ubuntu 22.04 / 24.04** ve belirtilen masaüstü/ekran kartı koşullarıdır. Yeni bir standart Linux ortamı seçilecekse **Ubuntu 24.04 LTS** önerilir.
+- Muhammed'in bilgisayarı **LMDE 7 / Debian 13 tabanlıdır**; resmî destek listesinde değildir. Bu, kesin çalışmaz demek değildir. Mevcut sistemi değiştirmeden önce Hub kurulumu, Editor açılışı, Play Mode ve Android build testi yapılmalı. Sorun çıkarsa desteklenen Ubuntu ortamı değerlendirilir.
+- Oyun tek sahneli, kart/panel ağırlıklıdır. İlk proje için **2D Built-In + Canvas/uGUI ve TextMeshPro** önerilir; HDRP ve ek render paketleri gerekli değildir. Bu mimari öneridir, zorunlu resmî gereksinim değildir.
+- Sürüm notlarında `6000.3.27f1` için tekrarlı `LoadSceneAsync` sahne geçişlerinde kilitlenme ve Android cihaz döndürmede SRP hataları bulunuyor. Tek sahne yaklaşımı ilk riski azaltır; cihaz döndürme ve build davranışı yine test edilmeli. “LTS” hatasızlık garantisi değildir.
+- Proje oluşturulunca Editor'ın ürettiği `ProjectSettings/ProjectVersion.txt`, `Packages/manifest.json`, `Packages/packages-lock.json` ve varlıkların `.meta` dosyaları Git'e alınmalı. Bu dosyalar Editor çalıştırılmadan elle uydurulmamalı. Paketler daha sonra tek kişinin bilgisayarında bağımsız yükseltilmemeli.
+
+### Mevcut üç-repo düzeni
+
+Eski bölümlerdeki tek-repo yolları yerine çalışma alanı şu şekildedir:
+
+```text
+ileri programlama proje/
+├── AI/       # ai/, data/, .venv/
+├── Docs/     # Bu rehber, kart_formati.md, tema.json
+└── Unity/    # Unity projesi Unity/unity/ altında oluşturulacak
+```
+
+Linux'taki mevcut kurulumda eski AI belge yollarını karşılamak için `AI/docs -> ../Docs` yerel sembolik bağlantısı vardır. Windows'ta aynı bağlantı otomatik oluşmaz; AI ekibi ayrı repo yollarını taşınabilir şekilde düzenlemelidir.
+
+### Kaynaklar
+
+26 Ekim 2026 tarihinde kontrol edildi:
+
+- [Unity 6 destek politikası](https://unity.com/releases/unity-6/support)
+- [6000.3.27f1 sürüm notları ve bilinen sorunlar](https://unity.com/releases/editor/whats-new/6000.3.27f1)
+- [Unity 6.3 sistem gereksinimleri](https://docs.unity.com/en-us/engine/6000.3/manual/get-started/install-and-upgrade/getting-started-installing-unity/system-requirements)
+- [Android bağımlılık sürümleri](https://docs.unity.com/en-us/engine/6000.3/manual/platform-specific/android/getting-started/sdksetup/supported-dependency-versions)
+- [Android modüllerini kurma](https://docs.unity.com/en-us/engine/6000.3/manual/platform-specific/android/getting-started/sdksetup/install-dependencies)
+- [Unity C# derleyicisi](https://docs.unity3d.com/6000.3/Documentation/Manual/csharp-compiler.html)
+- [.NET Standard 2.1 API profili](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/ApiCompatibilityLevel.NET_Standard.html)
+- [Python sürüm destek takvimi](https://devguide.python.org/versions/)
+- [Resmî PyTorch sürümleri](https://github.com/pytorch/pytorch/releases)
+
+---
+
 ## Genel bakış: ne kuruyoruz, neden?
 
 | # | Ne | Neden lazım | Kim |
@@ -94,13 +170,13 @@ cd ileri-programlama
 **Mantık:** Unity projesi, Unity sürümüne çok bağlıdır. **Herkes birebir aynı sürümü** kurar. Sürüm 1. hafta toplantısında yazılır ve bir daha değişmez.
 
 1. **unity.com/download** → **Unity Hub**'ı kur, Unity hesabınla gir.
-2. Hub → *Installs* → *Install Editor* → **Unity 6 LTS** 💡 (ekipte kararlaştırılan tam sürüm numarası, ör. `6000.0.xx`). Sürüm: **`______`** (1. haftada yazılacak)
+2. Hub → *Installs* → *Install Editor* → **Unity 6.3 LTS `6000.3.27f1` önerilir** 💡 (yukarıdaki araştırmaya bak). **Ekip onayı: bekliyor.** Onaydan sonra herkes tam olarak aynı sürümü kurar; listede görünmezse resmî sürüm arşivinden Hub ile açılır.
 3. Modüller ekranında işaretle:
    - ☑ **Android Build Support**
      - ☑ OpenJDK
      - ☑ Android SDK & NDK Tools
    - ☑ (Windows'taysan) Visual Studio istemiyorsan işareti kaldır, VS Code kullanacağız
-4. Kurulum bitince Hub → *Projects* → *Add* → `ileri-programlama/unity/` klasörünü seç. *(Proje 1. haftada açılınca.)*
+4. Kurulum bitince Hub → *Projects* → *Add* → çalışma alanındaki `Unity/unity/` klasörünü seç. *(Gerçek Unity projesi 1. haftada oluşturulunca; şu an yalnızca README var.)*
 
 **Kontrol:** Proje açılıyor, *File → Build Settings*'te **Android** seçilebiliyor.
 
@@ -118,13 +194,14 @@ cd ileri-programlama
 **Mantık:** Asıl ağır işler Colab'da, ama kodu yazarken küçük denemeleri bilgisayarda yaparız (kart biçimi dönüştürücüsü, filtre, testler).
 
 1. **python.org** → **Python 3.11** 💡 (Windows'ta kurulumda **"Add Python to PATH"** işaretli olsun).
-2. Depo klasöründe sanal ortam:
+2. **AI deposunun kökünde** sanal ortam (Python 3.11 ile):
    ```bash
    python -m venv .venv
    # Windows:  .venv\Scripts\activate
    # Mac/Linux: source .venv/bin/activate
-   pip install -r ai/requirements.txt
+   python -m pip install -r ai/requirements.txt
    ```
+   Linux'ta `uv` kullanılıyorsa Python serisini açıkça seçebilirsiniz: `uv venv --python 3.11 .venv`. Mevcut bilgisayarda ortam zaten kuruldu; yeniden oluşturmak gerekmez. CPU/GPU PyTorch kaynağını ortama göre seçin.
 3. **Sanal ortam nedir?** Projenin paketlerini bilgisayarın geri kalanından ayıran bir kutu. Her seferinde terminali açınca `activate` komutunu çalıştır.
 
 **Kontrol:**
