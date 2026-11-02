@@ -69,7 +69,7 @@ Gemini için ayrı defter var: `uretim_gemini.ipynb` (GPU gerekmez). Colab'da a�
 
 ### Altın set (her gün, kendi yapay zekânla)
 Sayfa: claude.ai'de **Altın Set Prompt Üretici** (kaynak kodu `AI/ai/altin_set/`). Hedef kişi başı günde 1000+ kart.
-1. **Üret** sekmesinde kart sayısını seç (30 ya da 50), **Prompt'u kopyala**.
+1. **Üret** sekmesinde kart sayısını seç (30, 50 ya da 100), **Prompt'u kopyala**.
 2. Claude, Gemini, ChatGPT… hangisini kullanıyorsan web sohbetine yapıştır. (Sayfadaki **Claude ile üret** düğmesi de olur.)
 3. Cevabı sayfadaki kutuya yapıştır, **Hangi model**'i seç. Kartlar otomatik kontrol edilir: yeşil geçti, sarı uyarılı (kaydedilir), kırmızı hatalı (kaydedilmez).
 4. **Kaydet** → **Yeni malzeme** ile sonraki paket. Okuma (iyi/at) yok.
