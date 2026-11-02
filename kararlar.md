@@ -128,3 +128,5 @@ Her karar: tarih · karar · neden. Yeni kararlar en alta eklenir. Haftalık top
 | --- | --- |
 | Kart üretimi bugün başlar: üretim kodu (türe göre kelime, yeni kart promptu, 12B 4-bit/8-bit, Colab+Kaggle defteri) Claude'dan. Filtre, dönüştürücü, tokenizer, hazır veriler ve veri hazırlamayı ekip (Mert, Sokul) yazar: `yz_gorevleri.md` | Üretim beklemesin; ders görevleri ekibin kendi işi |
 | Altın set üretilen kartlardan başlar: ekip okur, düzeltir, iyileri altın sete alır | Altın set için hazır malzeme olsun |
+| **Gemini de kullanılır** (1 Kasım'daki "Gemini kullanılmaz" kaydının yerine geçer): toplu üretimde Gemma 4 12B'nin yanında Gemini da öğretmen olabilir | Proje ders ödevi, ticari değil; hacim artsın |
+| **Altın set herkesin kendi yapay zekâsıyla** (Claude, Gemini… web sohbet ekranından) yazılır, elle düzeltilip altın set sitesine eklenir; ham kartlardan seçmek zorunlu değil. Ham kartlarda görülen hatalar yine filtre (S1) için not edilir | Altın set ham üretimi beklemesin, kalite daha yüksek olsun |
