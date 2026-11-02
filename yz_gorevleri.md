@@ -60,10 +60,10 @@
 6. Sabah: o sürümü aç → **Output** → `kaydir_veri.zip`'i indir (oturum kapanınca silinir), Drive'a `kaydir_veri/ham/` altına koy.
 
 ### Gemini
-Aynı defter Gemini ile de üretir (GPU gerekmez):
+Gemini için ayrı defter var: `uretim_gemini.ipynb` (GPU gerekmez). Colab'da açmak için: https://colab.research.google.com/github/IleriProgramlamaProje/AI/blob/main/ai/veri_uretimi/uretim_gemini.ipynb
 1. aistudio.google.com → **Get API key** → **Create API key** → anahtarı kopyala.
-2. Colab'da 🔑 Secrets'a ya da Kaggle'da *Add-ons → Secrets*'a `GEMINI_API_KEY` adıyla ekle.
-3. 1. hücrede `OGRETMEN = 'gemini'` yap (model: `GEMINI_MODEL`, varsayılan `gemini-flash-latest`). Kaggle'da GPU seçmeye gerek yok, Internet açık olmalı.
+2. Colab'da 🔑 Secrets'a ya da Kaggle'da *Add-ons → Secrets*'a `GEMINI_API_KEY` adıyla ekle, **Notebook access** açık. (Colab'daki *Gemini API keys* düğmesiyle içe aktarılan `GOOGLE_API_KEY` de olur.)
+3. 1. hücrede `KISI` = kendi adın (model: `GEMINI_MODEL`, varsayılan `gemini-flash-latest`). Colab'da çalışma zamanı CPU yeterli; Kaggle'da GPU seçmeye gerek yok, Internet açık olmalı.
 4. **Run all** (Kaggle'da gece için *Save & Run All*). Dosyalar `kart_<ad>_<ortam>_<oturum>_gemini.jsonl` adıyla yazılır, Gemma dosyalarına karışmaz; filtre (S1) ikisini birden okur.
 5. Ücretsiz kotada dakikalık/günlük sınır var: kota dolunca motor bekleyip yeniden dener, günlük sınır biterse defter durur, ertesi gün **Run all** kaldığı yerden devam eder.
 
