@@ -68,11 +68,13 @@ Gemini için ayrı defter var: `uretim_gemini.ipynb` (GPU gerekmez). Colab'da a�
 5. Ücretsiz kotada dakikalık/günlük sınır var: kota dolunca motor bekleyip yeniden dener, günlük sınır biterse defter durur, ertesi gün **Run all** kaldığı yerden devam eder.
 
 ### Altın set (her gün, kendi yapay zekânla)
-1. Claude, Gemini ya da kullandığın başka bir yapay zekânın web sohbet ekranını aç.
-2. `ai/veri_uretimi/promptlar/kart.txt` (veya `hikaye.txt`) promptunu ver; karakter, kelimeler ve gösterge durumunu kendin seç ya da torbalardan al.
-3. Çıkan kartı `kart_formati.md` 4. bölümdeki kurallara göre elle düzelt (7 satır, etkiler, hitap…).
-4. Altın set sitesine ekle; günün sonunda JSON'u indirip gruba at.
-5. Ham kartlarda gördüğün hataları (bozuk kelime, kurala uymayan kart) not et: bu notlar filtrenin (S1) kurallarına girer.
+Sayfa: claude.ai'de **Altın Set Prompt Üretici** (kaynak kodu `AI/ai/altin_set/`). Hedef kişi başı günde 1000+ kart.
+1. **Üret** sekmesinde kart sayısını seç (30 ya da 50), **Prompt'u kopyala**.
+2. Claude, Gemini, ChatGPT… hangisini kullanıyorsan web sohbetine yapıştır. (Sayfadaki **Claude ile üret** düğmesi de olur.)
+3. Cevabı sayfadaki kutuya yapıştır, **Hangi model**'i seç. Kartlar otomatik kontrol edilir: yeşil geçti, sarı uyarılı (kaydedilir), kırmızı hatalı (kaydedilmez).
+4. **Kaydet** → **Yeni malzeme** ile sonraki paket. Okuma (iyi/at) yok.
+5. Günün sonunda **Veri** sekmesinden indir: oyun JSON'u, eğitim metni, ham JSONL.
+6. Ham kartlarda (Gemma/Gemini) gördüğün hataları not et: filtrenin (S1) kurallarına girer.
 
 ## Sokul
 
