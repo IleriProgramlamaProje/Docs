@@ -12,7 +12,7 @@
 ## 2. Modelin okuyup yazdığı biçim
 
 ```
-<yonetim:50> <halk:50> <para:60> <ordu:35> <konu:maaş> <konuşan:akıncı_beyi>
+<yonetim:50> <halk:50> <para:60> <ordu:35> <konu:maaş> <konuşan:akinci_beyi>
 <kart> {hitap}, askerler üç aydır maaş alamadı. Kışlada söylenmeler başladı; ödenmezse kaçanlar olacak.
 <sol> Maaşları hazineden öde <para--> <ordu++>
 <sonuc> Askerler sevindi, ama hazine iyice eridi.
@@ -38,7 +38,7 @@
 | `++` / `--` | ±10 |
 | `+++` / `---` | ±15 |
 
-Gösterge adları etikette küçük harf: `yonetim`, `halk`, `para`, `ordu` ✅ (görünen ad: **Yönetim**, Halk, Para, Ordu). Konuşan etiketi: unvanın küçük harf, alt çizgili hâli (`akıncı_beyi`) 💡.
+Gösterge adları etikette küçük harf: `yonetim`, `halk`, `para`, `ordu` ✅ (görünen ad: **Yönetim**, Halk, Para, Ordu). Konuşan etiketi: `tema.json` → `karakterler[].anahtar` (ASCII, alt çizgili: `akinci_beyi`) 💡.
 
 ## 3. Godot'taki biçim (JSON) 💡
 
@@ -56,7 +56,7 @@ Gösterge adları etikette küçük harf: `yonetim`, `halk`, `para`, `ordu` ✅ 
 
 - `kaynak`: `altin_set` · `model` · `ogretmen`
 - `lisans`: Altın set kartları `sadece_ders` ✅ (oyun yayınlanırsa çıkarılır)
-- Planlanan dönüşüm (henüz uygulanmadı): `ai/ortak/kart_bicimi.py` (Python) · `Game/game/Betikler/Kartlar/Kart.cs` (Godot)
+- Planlanan dönüşüm: `ai/ortak/kart_bicimi.py` (Python, görev S2) · `Game/game/Betikler/Kartlar/Kart.cs` (Godot)
 
 ## 4. Doğrulayıcının kontrol listesi
 
@@ -71,8 +71,8 @@ Gösterge adları etikette küçük harf: `yonetim`, `halk`, `para`, `ordu` ✅ 
 
 Geçmezse kart yeniden yazdırılır, yine olmazsa yedek desteden kart gelir ✅.
 
-## 5. Üretimin mevcut durumu · 26 Ekim
+## 5. Üretimin mevcut durumu · 1 Kasım
 
-Öğretmen promptu da `<kart>`, `<sol>`, `<sag>`, `<sonuc>` etiketleriyle ham kart gövdesi ister. Öğretmen durum satırını yazmaz; durum ve seçilen rol üretim kaydının `malzeme` alanındadır. Ham model çıktısı doğrulanmış kart sayılmaz; dönüştürücü ve içerik filtresi henüz uygulanmadı.
-
-Rol anahtarlarının kaynağı `tema.json` içindeki `karakterler[].anahtar` alanıdır. Yukarıdaki eski etiket örneğinde `akıncı_beyi`, JSON örneğinde `akinci_beyi` geçer; eğitim/gösterge durum satırının normalizasyonu iki ekipçe kesinleştirilmelidir. JSON önerisi, HTTP sözleşmesi ve bu normalizasyon tamamlanmış uygulama olarak kabul edilmez.
+- **Öğretmen** (Gemma 4 12B) etiketli gövde değil **satırlı** biçim yazar: `Metin / Sol / Sol sonuç / Sol etki / Sağ / Sağ sonuç / Sağ etki`. Etiketli gövdede ve tek sabit örnekte model örneğin etkilerini kopyalıyordu (ilk denemede kartların %31'i); satırlı biçimde her istekte farklı bir örnek gösterilir, etki sonuca bakılarak yazılır.
+- **Filtre** (`AI/ai/filtre/filtre.py`, görev S1) ve **dönüştürücü** (`AI/ai/ortak/kart_bicimi.py`, görev S2) henüz yazılmadı; kurallar `yz_gorevleri.md`'de. O zamana kadar üretim `ham/` klasöründe bekler.
+- **Konuşan anahtarı** önerisi: `tema.json` → `karakterler[].anahtar` (ASCII, alt çizgili: `akinci_beyi`), hem eğitim satırında hem JSON'da aynısı. Konu: eğitim satırında boşluklar `_` (`<konu:kale_onarımı>`), JSON'da ASCII (`kale_onarimi`). İki ekip onaylayınca kesinleşir.

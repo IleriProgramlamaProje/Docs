@@ -53,9 +53,9 @@ Test üç boyutta panel geçişlerini kontrol eder. Gerçek fare/klavye/dokunma 
 
 ## Colab ve öğretmen üretimi
 
-Önce `AI/ai/veri_uretimi/hiz_olcumu.ipynb`, sonra `uretim.ipynb` kullanılır. Notebook AI ve Docs depolarını ayrı klonlar; mevcut klasörleri silmez. Özel depolar için token gizli girişle alınır, diske veya URL'ye yazılmaz. Hugging Face oturumu ayrıca açılır. GPU çalışma zamanı seçilmeli.
+Üretim için `AI/ai/veri_uretimi/uretim.ipynb` kullanılır (Colab ve Kaggle; hızı da o yazar). Notebook herkese açık AI ve Docs depolarını ayrı klonlar; mevcut klasörleri silmez. Hugging Face token'ı Colab/Kaggle Secrets'tan (`HF_TOKEN`) ya da gizli girişle alınır. GPU çalışma zamanı seçilmeli.
 
-Notebook paketleri henüz gerçek GPU denemesiyle sabitlenmedi. Yerel sahte motor testleri öğretmenin yüklenmesini, GPU belleğini veya üretim kalitesini doğrulamaz. Varsayılan grup 8'dir; hız/bellek ölçümünden sonra artırılabilir. Hız ölçümü her çalışmada ayrı çıktı dosyası kullanır.
+Notebook paketleri henüz gerçek GPU denemesiyle sabitlenmedi. Yerel sahte motor testleri öğretmenin yüklenmesini, GPU belleğini veya üretim kalitesini doğrulamaz. Defterde grup Colab'da 4, Kaggle'da 8'dir (komut satırı varsayılanı 64); hız her parçada ekrana yazılır.
 
 ## Android ve tamamlanma ölçütü
 

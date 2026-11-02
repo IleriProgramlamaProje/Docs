@@ -1,5 +1,5 @@
 {
-  "_not": "25 Ekim 2026. Gösterge adı Yönetim (eski adı Senato). 23 rol, kimlik kartlarıyla. Metinler onaylı.",
+  "_not": "1 Kasım 2026. Gösterge adı Yönetim (eski adı Senato). 23 rol, kimlik kartlarıyla. Derviş, Ozan ve Kervan Başı kimlikleri 1 Kasım'da sadeleşti (dua, mecaz, güvenlik çıktı).",
   "tema": "Türk tarzı krallık (Kral, Divan; Türk-İslam kültürü)",
   "hitap": {
     "erkek": "Beyim",
@@ -43,7 +43,7 @@
     },
     "para_0": {
       "baslik": "Para İsyanı",
-      "metin": "Hazine tamamen boşaldı; ekonomik çöküş kısa sürede büyük bir isyana dönüştü."
+      "metin": "Hazine tamamen boşaldı; çarşı durdu, açlık kısa sürede büyük bir isyana dönüştü."
     },
     "para_100": {
       "baslik": "Dolu Hazine",
@@ -217,12 +217,12 @@
       "unvan": "Derviş",
       "ton": "Sakin, mütevazı, öğüt verici",
       "gorev": "Yoksulların durumuna dikkat çeker; merhameti öne çıkarır.",
-      "ornek": "Bir yoksulun duasını küçümsemeyin, {hitap}.",
+      "ornek": "Yoksulun sesini duymayan kale içten çöker, {hitap}.",
       "alan": "Halk",
       "cinsiyet": "Erkek",
-      "sik_sozler": "yoksul; merhamet; dua; gönül; sabır",
+      "sik_sozler": "yoksul; merhamet; gönül; sabır; paylaşmak",
       "asla": "Kural ve ceza konuşmaz, kimseyi suçlamaz",
-      "farki": "Kadı hükümle konuşur; Derviş gönülle ve kıssayla konuşur"
+      "farki": "Kadı hükümle konuşur; Derviş gönülle ve öğütle konuşur"
     },
     {
       "anahtar": "ciftci",
@@ -251,12 +251,12 @@
     {
       "anahtar": "ozan",
       "unvan": "Ozan",
-      "ton": "Şiirsel, coşkulu, mecazlı",
+      "ton": "Coşkulu, duygulu, türkü seven",
       "gorev": "Halkın sevincini ve kaygısını hikâyelerle anlatır.",
-      "ornek": "Kuru dal da baharı bekler; halkın umudu henüz tükenmedi.",
+      "ornek": "Meydanda türküler yine hüzünlü; halkın umudu azalıyor.",
       "alan": "Halk",
       "cinsiyet": "Çift",
-      "sik_sozler": "kuru dal; bahar; türkü; halkın sesi; umut",
+      "sik_sozler": "türkü; halkın sesi; umut; meydan; düğün",
       "asla": "Kuru rakamla konuşmaz, kimseyi doğrudan suçlamaz",
       "farki": "Soytarı alay eder; Ozan benzetmeyle ve türküyle anlatır"
     },
@@ -300,13 +300,13 @@
       "anahtar": "kervan_basi",
       "unvan": "Kervan Başı",
       "ton": "Tedbirli, deneyimli, açık sözlü",
-      "gorev": "Ticaret yollarını ve kervanların güvenliğini gözetir.",
-      "ornek": "Yol güvenli değilse hiçbir kervan geçmek istemez.",
+      "gorev": "Ticaret yollarını gözetir; kervanların yolda başına iş gelmemesine bakar.",
+      "ornek": "Yolda eşkıya varsa hiçbir kervan geçmek istemez.",
       "alan": "Para",
       "cinsiyet": "Erkek",
       "sik_sozler": "yol; kervan; eşkıya; han; yük",
       "asla": "Saray entrikasına girmez",
-      "farki": "Tüccar malını düşünür; Kervan Başı yolun güvenliğini düşünür"
+      "farki": "Tüccar malını düşünür; Kervan Başı yolun selametini düşünür"
     },
     {
       "anahtar": "demirci_usta",

@@ -72,8 +72,8 @@
 ### `data/torbalar/`
 | Dosya | İçine ne yazılır | Örnek |
 | --- | --- | --- |
-| Drive’daki `Torba_Listesi` tablosu | **Asıl kaynak.** Herkes buraya yazar | — |
-| `kelimeler.csv` | `kelime,tur,ekleyen` | `kervan,isim,Claude` |
+| `AI/data/torbalar/*.csv, *.txt` | **Asıl kaynak** (1 Kasım'dan beri). Değişiklik PR ile yapılır; Drive'daki `Torba_Listesi` artık kullanılmıyor | — |
+| `kelimeler.csv` | `kelime,tur` | `kervan,isim` |
 | `karakterler.csv` | `rol,ton,gorev,ornek,alan,cinsiyet,sik_sozler,asla,farki` | `Kadı,"ağırbaşlı, kuralcı"` |
 | `olaylar.csv` | Olay, alan, iki seçenek ve etki sütunları | `id,olay,alan,etiket,sol_secenek,sol_etki,sag_secenek,sag_etki` |
 | `konular.txt`, `yer.txt`… | Her satırda bir madde | `kuraklık` |
@@ -123,9 +123,8 @@
 | `torbalar.py` | Torbaları okur, rastgele çeker | `data/torbalar/*` → `{"karakter": "Çoban", "olay": "kuraklık", "kelimeler": [...]}` |
 | `istek_olusturucu.py` | Çekilenleri prompt şablonuna yerleştirir | torba seçimi + `promptlar/*.txt` → öğretmen için tam metin |
 | `promptlar/hikaye.txt`, `kart.txt` (ayrı `uslup.txt` henüz yok) | Prompt **şablonları**. İçinde `{karakter}`, `{olay}` gibi boşluklar var | Kod boşlukları doldurur |
-| `uretici.py` | Öğretmen modeli çalıştırır, cevabı dosyaya yazar | prompt → `uretilen/gece_XX.jsonl` (Drive) |
-| `hiz_olcumu.ipynb` | Colab: öğretmen saatte kaç hikâye yazıyor | Öğretmen seçimi için sayı |
-| `uretim.ipynb` | Colab: gece boyu toplu üretim | "Tümünü çalıştır" ile başlar, Drive'a yazar |
+| `uretici.py` | Öğretmen modeli çalıştırır, cevabı dosyaya yazar | prompt → Drive `kaydir_veri/ham/*.jsonl` (filtreden sonra `kaydir_veri/temiz/`) |
+| `uretim.ipynb` | Colab + Kaggle: 12B ile üretim (önce kart), hız | Günlük sayı ve ham veri (filtre görev S1) |
 
 **Neden prompt ayrı bir `.txt`?** Prompt'u değiştirmek için kod değiştirmek gerekmesin. Oyun ekibindeki biri de prompt'u okuyup düzeltebilsin.
 

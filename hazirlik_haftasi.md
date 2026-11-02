@@ -15,7 +15,7 @@
 | **Tema** | Orta Çağ Türk beyliği | **Türk tarzı krallık.** "Kral" denir; göstergeler **Yönetim**, Halk, Para, Ordu, dünya Türk-İslam kültüründe kalır |
 | **Oynanış** | 4 mekanik adayı | **Düz kart + kaydırma.** Açılış → kart → sonuç ekranı → … → son |
 | **Hitap** | "Beyim" yok | Oyuncu cinsiyet seçer → **"Beyim" / "Hatunum"**. Model `{hitap}` yazar, gerektiğinde |
-| **Kart başlığı** | — | Konuşanın unvanı + ismi ("Defterdar Yakup"), oyun kodu koyar |
+| **Kart başlığı** | — | Konuşanın unvanı + ismi ("Hazinedar Yakup"), oyun kodu koyar |
 | **Sonuç cümlesi** | Yok | Model her seçenek için bir sonuç cümlesi yazar |
 | **Etkiler** | 2 kademe (±10, ±20) | **3 kademe: ±5 · ±10 · ±15** |
 | **Sonlar** | 8 son | 8 son + **kazanma sonu** (hedef süreye ulaşınca; isterse rekor için devam) |
@@ -31,7 +31,7 @@
 | --- | --- | --- | --- |
 | 1 | **Kurulum** | Herkes | Git, Unity, Python, Colab (`kurulum.md`) |
 | 2 | **`ileri-programlama` deposu** | Bir kişi | `ileri-programlama.zip`'teki iskelet yüklenir |
-| 3 | **Kelime torbası** | Herkes | ~2000 kelime, isim / fiil / sıfat |
+| 3 | **Kelime torbası** | Herkes | 1500 kelime (1 Kasım), isim / fiil / sıfat |
 | 4 | **Diğer torbalar** | Herkes | Olay, özellik, üslup, konu, yer, zaman, ruh hâli, ikilem |
 | 5 | **Öğretmen model hız ölçümü + seçim** | Mert | Gemma 4 ve Qwen 3.5, Colab'da |
 | 6 | **Hikâye üretici kodu** | Mert | Torba → prompt → öğretmen → dosya |
@@ -56,8 +56,8 @@ Bu, TinyStories makalesindeki yöntemin aynısı (bkz. 8. bölüm).
 
 | # | Torba | Ne içerir | Örnek | Önerilen hedef |
 | --- | --- | --- | --- | --- |
-| 1 | **Kelimeler** | isim / fiil / sıfat | kervan, kaçmak, yorgun | **~2000** ✅ |
-| 2 | **Karakterler** | Rol (isim değil unvan) | Kadı, Vezir, Defterdar | **15** ✅ (son hâli 1. hafta) |
+| 1 | **Kelimeler** | isim / fiil / sıfat | kervan, kaçmak, yorgun | **1500** ✅ |
+| 2 | **Karakterler** | Rol (isim değil unvan) | Kadı, Vezir, Hazinedar | **23** ✅ (25 Ekim) |
 | 3 | **Olaylar** | Ne oluyor | kuraklık, düğün, sınırda baskın | ~100 |
 | 4 | **Özellikler** | Hikâyenin bir niteliği | kötü bitsin, diyalog olsun | 30–40 |
 | 5 | **Üsluplar** | Nasıl anlatılsın | Dede Korkut gibi, masal gibi | 20–30 |
@@ -72,7 +72,7 @@ Atasözü torbası düşünüldü, alınmadı. Torba boyutları (3–10) öneri;
 **Kodun ürettiği:** Gösterge durumu (Yönetim, Halk, Para, Ordu için rastgele değerler). Model, kartı o anki duruma uygun yazmayı böyle öğrenir.
 
 ### Torbalar nasıl kullanılır?
-- **Hikâyelerde:** Birkaç torba her zaman (karakter + olay + 3 kelime), diğerlerinden rastgele 1–2 tanesi. İstek kısa kalır, öğretmen model şaşırmaz.
+- **Hikâyelerde:** Karakter + 3 kelime (1 isim + 1 fiil + 1 sıfat) her zaman, diğerlerinden rastgele 1–2 tanesi (1 Kasım). Kartta 2 kelime (isim + sıfat). İstek kısa kalır, öğretmen model şaşırmaz.
 - **Kartlarda:** Oyunda modele hangi bilgiler gidecekse, eğitimdeki kartlarda da çoğunlukla bulunmalı. Düz kart seçildiği için hangi durum etiketlerinin gideceği **1. haftada kart biçimiyle birlikte** kesinleşir.
 
 ### `Torba_Listesi.xlsx` nasıl doldurulur?
@@ -95,8 +95,8 @@ Atasözü torbası düşünüldü, alınmadı. Torba boyutları (3–10) öneri;
 
 - **23 rol** (unvan), 4 grup: Yönetim 7 · Ordu 4 · Halk 6 · Para 6. Her rolün kimlik kartı var: ton, görev, örnek cümle, sık kullandığı sözler, asla yapmadığı, benzerinden farkı (`data/torbalar/karakterler.csv`). "Çift" cinsiyetli roller oyunda erkek de kadın da olabilir.
 - **İsimler oyun kodunda rastgele atanır**, her yeni oyunda bir kez. Model isim görmez.
-- **Kart içinde başka karakterden sadece unvanla bahsedilir:** "Defterdar dün hazineyi saydı…"
-- **Karakter–konu uyumu:** Dert, konuşanın işine uygun olsun. Kadı ordu işi getirmez, vergiyi Defterdar getirir. Oyun kodu kartı "rol–konu tablosuna" göre seçer (3. hafta).
+- **Kart içinde başka karakterden sadece unvanla bahsedilir:** "Hazinedar dün hazineyi saydı…"
+- **Karakter–konu uyumu:** Dert, konuşanın işine uygun olsun. Kadı ordu işi getirmez, vergiyi Hazinedar getirir. Oyun kodu kartı "rol–konu tablosuna" göre seçer (3. hafta).
 
 ---
 

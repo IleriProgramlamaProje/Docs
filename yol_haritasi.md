@@ -45,7 +45,7 @@
 | **Görseller** | 23 rol + "Çift" cinsiyetli 9 rolün ikinci portresi = 32 portre, + açılış + 8 son + kazanma ≈ **42 resim**. Görsel üreticiyle, oyun ekibi |
 | **Model** | Sıfırdan: 1M → 10M → 30M. 5. hafta başında karar noktası, gerekirse B planı (LoRA) |
 | **Çalıştırma** | Ana hedef: Godot, dizüstündeki Python kart üreticisiyle konuşur. APK yedek desteyle çalışır. Telefona gömme (isteğe bağlı ONNX fizibilitesi) zaman kalırsa |
-| **Öğretmen model** | **Gemma 4 E4B** ✅ (25 Ekim). Colab hız ölçümü 1. haftanın ilk işi, hedef veri miktarı ona göre |
+| **Öğretmen model** | **Gemma 4 12B** ✅ (1 Kasım; 25 Ekim'de E4B seçilmişti, karşılaştırmada elendi). Colab T4'te 4-bit, Kaggle 2×T4'te 8-bit |
 | **Ekip** | 2 haftalık dönemler, rol rotasyonu (2. bölüm). Koordinatör: **Mert** |
 
 ---
@@ -226,10 +226,10 @@ Bu üst klasör bir Git deposu değildir. Gelecekte oluşturulacak dosyalar ve s
 | --- | --- | --- | --- | --- | --- |
 | Hz.1 | GitHub'da **`ileri-programlama`** deposunu aç, `ileri-programlama.zip`'teki iskeleti yükle; Drive klasörünü aç ✅ karar | Mert | Zip'in tamamı | Herkes klonlayabiliyor | — |
 | Hz.2 | Kurulum haftasının eksikleri (Godot aynı sürüm, Python, Colab GPU) | Herkes | `docs/kurulum.md` | `kurulum.md`'deki "bitti" listesi tamam | — |
-| Hz.3 | **Öğretmen model hız ölçümü** (Gemma 4 E4B, Colab). Defter hazır ✓ | Mert (1. haftanın başı) | `ai/veri_uretimi/hiz_olcumu.ipynb` | "Saatte kaç hikâye / kart" sayısı var | — |
-| Hz.4 | ✅ **Öğretmen modeli seçildi:** Gemma 4 E4B | — | `docs/raporlar/ogretmen_secimi.md` | — | — |
+| Hz.3 | **Öğretmen model hız ölçümü** · hızı artık `uretim.ipynb` yazıyor | Mert (1. haftanın başı) | `ai/veri_uretimi/uretim.ipynb` | "Saatte kaç hikâye / kart" sayısı var | — |
+| Hz.4 | ✅ **Öğretmen modeli seçildi:** Gemma 4 12B (1 Kasım; önce E4B seçilmişti) | — | `docs/raporlar/ogretmen_secimi.md` | — | — |
 | Hz.5 | ✓ **Hikâye/kart üretici kodu yazıldı** (torba → prompt → öğretmen → JSONL, kaldığı yerden devam) + testler. Colab'da ilk gerçek çalıştırma 1. hafta | Claude / Mert | `ai/veri_uretimi/*`, `ai/testler/test_veri_uretimi.py` | Testler geçiyor ✓; Colab'da 20 hikâye üretti | — |
-| Hz.6 | Torbalar sürüyor | Herkes | Drive’daki `Torba_Listesi` tablosu | — | — |
+| Hz.6 | ✅ Torbalar bitti (1 Kasım); değişiklik PR ile | Herkes | `AI/data/torbalar/*` | — | — |
 
 ### 1. hafta · 26 Ekim – 1 Kasım · Dönem 1
 
@@ -248,7 +248,7 @@ Bu üst klasör bir Git deposu değildir. Gelecekte oluşturulacak dosyalar ve s
 | --- | --- | --- | --- | --- |
 | 1.1 | Kart biçimi dönüştürücüsü | `ai/ortak/kart_bicimi.py`, `ai/testler/test_kart_bicimi.py` | Model metni ↔ JSON dönüşümü testlerden geçiyor | 1.0a |
 | 1.2 | ✓ Kart promptu yazıldı (sonuç cümlesi, `{hitap}`, 3 kademe, kimlik kartı). Bu hafta: 20 kartlık deneme | `ai/veri_uretimi/promptlar/kart.txt` | 20 kartlık deneme, çoğu kurala uyuyor | Hz.3 |
-| 1.3 | ✅ Torbalar dosyada (2000 kelime, 23 rol, 200 olay, 100 konu, 60 yer/üslup/ikilem, 40 ruh hâli/özellik/zaman) | `data/torbalar/*` | — | — |
+| 1.3 | ✅ Torbalar dosyada (1500 kelime, 23 rol, 200 olay, 100 konu, 60 yer/üslup/ikilem, 40 ruh hâli/özellik/zaman) | `data/torbalar/*` | — | — |
 | 1.4 | **Küçük deneme üretimi:** 500 hikâye + 100 kart, ekip okur | `data/uretilen/ornekler/` | Ekip "bu kalitede devam" dedi | 1.2 |
 | 1.5 | **Filtre** | `ai/filtre/filtre.py`, `kurallar.py`, `ai/testler/test_filtre.py` | Deneme üretiminden kötüleri ayıklıyor; kaçının atıldığı raporlanıyor | 1.4 |
 | 1.6 | **Büyük üretim başlar** (Colab, gece boyu; o dönemin YZ ekibi kendi hesaplarıyla) ✅ | `ai/veri_uretimi/uretim.ipynb` | Her gece üretim Drive'a yazılıyor, sayısı takip ediliyor | 1.4 |
@@ -501,7 +501,7 @@ Bu üst klasör bir Git deposu değildir. Gelecekte oluşturulacak dosyalar ve s
 
 ### 7.2 Torbalar
 - 1. hafta sonuna kadar torbaların ilk hâli bitsin 💡; sonra gerektiğinde eklenir.
-- Kelimeler ~2000 ✅; diğer torba boyutları hâlâ öneri.
+- Kelimeler 1500 ✅ (1 Kasım sadeleştirmesi).
 
 ---
 

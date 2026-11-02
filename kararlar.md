@@ -101,3 +101,30 @@ Her karar: tarih · karar · neden. Yeni kararlar en alta eklenir. Haftalık top
 - AI belge yolu kardeş Docs deposundan okunur; özel konum için `PROJE_DOCS_DIR` desteklenir.
 - Öğretmen promptu mevcut etiketli kart gövdesi sözleşmesine uyarlandı. Bu, doğrulayıcının veya JSON dönüştürücüsünün tamamlandığı anlamına gelmez.
 - Konu seçimi belgelenen yaklaşık %15 serbest oranına uyarlandı. Sabit tohumla devam etmede eski malzemelerin tekrarı, geçersiz grup boyutu ve bozuk dosyaya devam sorunları düzeltildi.
+
+## 26–27 Ekim 2026
+
+| Karar | Neden |
+| --- | --- |
+| Altın Set sitesi yerelde çalışır (2 dosya: index.html + data.js); herkes kendi kartını tarayıcıda saklar, günün sonunda JSON indirip gruba atar; Kart + Hikâye modu | Sunucu/kurulum derdi olmasın |
+| E4B ilk denemesi (128 hikâye + 128 kart): cümleler dil bilgisi olarak düzgün ama anlamsız; kartların %31'i prompttaki örneğin etkilerini kopyaladı | Zorla kelime + tek sabit örnek + küçük model |
+| Kart promptunda örnek her istekte değişir (8 örnek); sıra karar → sonuç → etki | Kopyalama |
+
+## 1 Kasım 2026
+
+| Karar | Neden |
+| --- | --- |
+| Kelime listesi sadeleşti: 1500 kelime (613 isim · 475 fiil · 412 sıfat) | Zor/nadir kelimeler anlamı bozuyordu |
+| **Hikâye: 3 kelime** (1 isim + 1 fiil + 1 sıfat, üçü istenir) · **Kart: 2 kelime** (1 isim + 1 sıfat, en az biri; hiçbiri yoksa filtre eler) | Kısa kart metnine zorla kelime saçma cümle üretiyordu; çeşitlilik için kelime kalsın |
+| Torbalardan dine kayan maddeler nötrleriyle değişti (cami avlusu, tekke, medrese, mescit, türbe, ezan, namaz, ramazan, kurban bayramı, vakıf…); kelimelerden dua, cami, medrese, kurban, şükretmek çıktı; Derviş'in sık sözlerinden "dua" çıktı | "Fazla dini olmasın" kararı; hikâyeler dua/evliyaya kayıyordu |
+| **Öğretmen model: Gemma 4 12B**. E4B elendi; Gemini kullanılmaz | Aynı 40 promptla karşılaştırmada 12B en tutarlısı. Gemini çıktısıyla eğitim Google kurallarına aykırı; Gemma 4 Apache 2.0 |
+| 12B Colab T4'te 4-bit, Kaggle 2×T4'te 8-bit; ikisi aynı anda. Bu hafta 2 kişi üretir (Mert, Sokul) | 4-bit yazımı biraz bozuyor (ünlü uyumu); filtre ayıklamalı, hacim iki ortamla telafi |
+| Öğretmen kart gövdesini etiketli değil **satırlı** yazar (26 Ekim'deki "etiketli gövde" kaydının yerine geçer); etiketli eğitim metnine `kart_bicimi.py` çevirir. Prompt ve üretim kodu hazır; dönüştürücü görev (`yz_gorevleri.md`) | Etiketli gövdede ve sabit örnekte etkiler kopyalanıyordu |
+| İkinci kontrol turu: söz/ton uymayan ve çağ dışı birkaç kelime daha çıktı (liste 1500); hikâyeyle çelişen üslup/özellikler (şiirsel, manili, tekerleme, sonu açık…) değişti; Kervan Başı'nın görevinden "güvenlik" çıktı | İkinci kontrol turu |
+
+## 2 Kasım 2026
+
+| Karar | Neden |
+| --- | --- |
+| Kart üretimi bugün başlar: üretim kodu (türe göre kelime, yeni kart promptu, 12B 4-bit/8-bit, Colab+Kaggle defteri) Claude'dan. Filtre, dönüştürücü, tokenizer, hazır veriler ve veri hazırlamayı ekip (Mert, Sokul) yazar: `yz_gorevleri.md` | Üretim beklemesin; ders görevleri ekibin kendi işi |
+| Altın set üretilen kartlardan başlar: ekip okur, düzeltir, iyileri altın sete alır | Altın set için hazır malzeme olsun |
