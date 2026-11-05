@@ -49,7 +49,7 @@
 6. Model 5–10 dk'da açılır. "5 · Kart üret" hücresinde **saatte ~X kart** satırı çıkınca gruba at.
 7. Dosyalar Drive'da `MyDrive/kaydir_veri/ham/`. Koparsa yine **Run all**: kaldığı yerden devam eder.
 8. Bitince **Runtime → Disconnect and delete runtime** (birim harcamasın).
-9. Ertesi gün: `KART_ADET`/`HIKAYE_ADET`'i artır (1500 → 3000), **Run all**. Not: GitHub'dan açılan defterde `KISI` kaydedilmez; her seferinde yeniden yaz ya da **Copy to Drive** ile kendi kopyanı kullan.
+9. Ertesi gün: **Run all** yeter. Colab her gün yeni dosya (`kart_<ad>_colab_<aagg>.jsonl`) ve yeni tohumla başlar, aynı gün tekrar çalışırsa kaldığı yerden devam eder. Not: GitHub'dan açılan defterde `KISI` kaydedilmez; her seferinde yeniden yaz ya da **Copy to Drive** ile kendi kopyanı kullan.
 
 ### Kaggle (2 GPU, 8-bit, gece arka planda)
 1. **+ Create → New Notebook → File → Import Notebook** → GitHub adresi: `https://github.com/IleriProgramlamaProje/AI/blob/main/ai/veri_uretimi/uretim.ipynb`

@@ -131,3 +131,10 @@ Her karar: tarih · karar · neden. Yeni kararlar en alta eklenir. Haftalık top
 | **Gemini de kullanılır** (1 Kasım'daki "Gemini kullanılmaz" kaydının yerine geçer): toplu üretimde Gemma 4 12B'nin yanında Gemini da öğretmen olabilir | Proje ders ödevi, ticari değil; hacim artsın |
 | **Altın set herkesin kendi yapay zekâsıyla** (Claude, Gemini… web sohbet ekranından) yazılır, elle düzeltilip altın set sitesine eklenir; ham kartlardan seçmek zorunlu değil. Ham kartlarda görülen hatalar yine filtre (S1) için not edilir | Altın set ham üretimi beklemesin, kalite daha yüksek olsun |
 | **Altın set sayfası yenilendi** (`AI/ai/altin_set/`, claude.ai'de "Altın Set Prompt Üretici"): güncel torbalar (1500 kelime), 10/20/30/50 kartlık paketler, her kartın konuşanı/durumu/kelimeleri prompt'ta; cevap yapıştırılınca kurallar otomatik kontrol edilir, hatalılar kaydedilmez. **Çapraz okuma (iyi/at) kaldırıldı**; hikâye modu çıktı. İndirme: oyun JSON'u, eğitim metni, ham JSONL, CSV | Kişi başı günde 1000+ kart hedefi; okuma bu hacimde yapılamaz |
+
+## 5 Kasım 2026
+
+| Karar | Neden |
+| --- | --- |
+| Altın set sayfasında hikâye modu var (3 Kasım'da geri eklendi; 2 Kasım'daki "hikâye modu kaldırıldı" kaydının yerine geçer) | Hikâye de kendi yapay zekâmızla üretilebilsin |
+| Colab'da dosya adı ve tohum artık günlük (`surekli` yerine `aagg`) | `surekli` dosyası Drive'da yer değiştirince defter aynı tohumla baştan başladı: 5 Kasım dosyasındaki 3.276 kaydın hepsi eski malzemelerin tekrarı çıktı, 2.795'i "aynı prompt" diye elendi |
