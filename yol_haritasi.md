@@ -1,4 +1,4 @@
-# Yol Haritası · Kaydır & Karar Ver
+# Yol Haritası · BUYRUK
 
 *Son güncelleme 26 Ekim 2026 · 8 hafta: 26 Ekim – 20 Aralık 2026*
 

@@ -138,3 +138,9 @@ Her karar: tarih · karar · neden. Yeni kararlar en alta eklenir. Haftalık top
 | --- | --- |
 | Altın set sayfasında hikâye modu var (3 Kasım'da geri eklendi; 2 Kasım'daki "hikâye modu kaldırıldı" kaydının yerine geçer) | Hikâye de kendi yapay zekâmızla üretilebilsin |
 | Colab'da dosya adı ve tohum artık günlük (`surekli` yerine `aagg`) | `surekli` dosyası Drive'da yer değiştirince defter aynı tohumla baştan başladı: 5 Kasım dosyasındaki 3.276 kaydın hepsi eski malzemelerin tekrarı çıktı, 2.795'i "aynı prompt" diye elendi |
+
+## 7 Kasım 2026
+
+| Karar | Neden |
+| --- | --- |
+| **Oyunun adı BUYRUK** ("Kaydır & Karar Ver" çalışma adının yerine geçer). Ana menü, oyun ekranı başlığı ve Godot proje adı (`config/name`) BUYRUK'tur; eski adın geçtiği belgeler güncellenir | Oyun ekibinin BUYRUK menüleri Game `main`'e alındı (`657dbf4`); oyunda ve belgelerde tek ad kullanılsın |

@@ -1,4 +1,4 @@
-# Hazırlık Haftası · Kaydır & Karar Ver
+# Hazırlık Haftası · BUYRUK
 
 *21–25 Ekim 2026 · Son güncelleme: 25 Ekim · Hazırlık bitti*
 

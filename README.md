@@ -1,4 +1,4 @@
-# Kaydır & Karar Ver · Proje belgeleri
+# BUYRUK · Proje belgeleri
 
 Türk tarzı krallıkta geçen kaydırmalı karar oyunu. Hedef, kartları ekibin sıfırdan eğiteceği küçük Türkçe dil modeliyle üretmek. Dört kişilik ekip; 26 Ekim–20 Aralık 2026.
 
