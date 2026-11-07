@@ -3,6 +3,7 @@
 - `ogretmen_secimi.md`: öğretmen model denemesi (LM Studio, 2 tur) · hız ölçümü sonuçları da buraya eklenecek
 - `donem-{N}-yapay-zeka.md`, `donem-{N}-oyun.md`: dönem raporları (dönemin son pazarı, giden başkan)
 - `denge_testi.md` (4. hafta), `oyun_testi.md` (7. hafta)
+- `2026-11-07-oyun-toplanti-gundemi.md`: G0 Android denemesinden çıkan, toplantıda konuşulacak oyun konuları
 
 ## Dönem raporu şablonu
 
