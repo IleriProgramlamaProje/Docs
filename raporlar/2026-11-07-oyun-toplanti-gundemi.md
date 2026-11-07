@@ -2,8 +2,8 @@
 
 Muhammed'in G0 Android denemesinden çıkan konular. Deneme POCO X5 Pro 5G'de (Android 14) yapıldı; altın set destesiyle üç tam oyun dokunarak oynandı.
 
-- Ayrıntılar ve denetim listesi: Game [`docs/android_g0.md`](https://github.com/IleriProgramlamaProje/Game/blob/muhammed/docs/android_g0.md)
-- Kod: Game [PR #1](https://github.com/IleriProgramlamaProje/Game/pull/1), Kara'nın incelemesini bekliyor.
+- Ayrıntılar ve denetim listesi: Game [`docs/android_g0.md`](https://github.com/IleriProgramlamaProje/Game/blob/main/docs/android_g0.md)
+- Kod: Game [PR #1](https://github.com/IleriProgramlamaProje/Game/pull/1), 7 Kasım'da `main`'e alındı; Kara inceleyip yorum yazabilir.
 
 Onaylanan maddeler `kararlar.md`'ye yazılır.
 

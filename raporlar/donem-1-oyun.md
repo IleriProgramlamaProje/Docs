@@ -11,16 +11,16 @@ Depo: [Game](https://github.com/IleriProgramlamaProje/Game) · Godot 4.7.2 .NET 
 - **H2 · 2.5–2.7, 2.9** (2 Kas, Muhammed): sonuç ekranı, sekiz son (`Betikler/Cekirdek/SonKontrolu.cs`), yıl sayacı (`Betikler/Cekirdek/YilSayaci.cs`), H1 ile birleşme. Assets paketiyle ortak tema (`Assets/ui/krallik_tema.tres`, Git LFS).
 - **BUYRUK arayüzü** (6 Kas, Kara): ana menü ve alt ekranlar (`Sahneler/AnaMenu.tscn`, `YeniOyun`, `KayitliOyunlar`, `Ayarlar`, `Credits`; `MenuSahnesi.cs`), gösterge bileşenleri (`GostergeBileseni.cs`), sürüklemeli deste kartı. Not: `docs/buyruk_arayuz_ve_kart_guncellemeleri.md`.
 - **Birleşme** (7 Kas, Muhammed, `main` `657dbf4`): `kara` + Assets teması. Çıkış animasyonunun karar kaybettirdiği hata, deste kartlarının `AddChild` hatası, kart yüksekliği ve dar ekran menü taşması düzeltildi. Klavyeyle karar (← → Enter), kalıcı ses/tam ekran ayarı, `MenuTesti` eklendi.
-- **2.8 · altın set destesi** (7 Kas, Muhammed, `muhammed` dalı `39f7883`, PR bekliyor): oyun altın setten seçilen 600 kartla açılır (`Veri/yedek_deste.json`). Üretici: `araclar/deste_olustur.py`. 2.9 bu desteyle uçtan uca test edildi.
-- **G0 · Android denemesi** (7 Kas, Muhammed, `muhammed` dalı, PR bekliyor): debug APK gerçek telefonda (POCO X5 Pro 5G, Android 14, arm64) kuruldu; üç tam oyun dokunarak, modelsiz oynandı. Sekiz sorun bulundu, düzeltildi ve testlere eklendi. Başlıcaları: Android'de C# derlenmiyordu (C# 13); oyun yatay açılıyordu (artık **dikey**, 360×640); dokunmayla ses kaydırıcısı ve sayfa kaydırma çalışmıyordu; geri tuşu uygulamayı kapatıyordu; dikeyde oyun ekranı sığmıyordu; kamera deliği sayacın üstüne denk geliyordu. Not: Game `docs/android_g0.md`.
+- **2.8 · altın set destesi** (7 Kas, Muhammed, PR #1 ile `main`'e alındı, `b529fd7`): oyun altın setten seçilen 600 kartla açılır (`Veri/yedek_deste.json`). Üretici: `araclar/deste_olustur.py`. 2.9 bu desteyle uçtan uca test edildi.
+- **G0 · Android denemesi** (7 Kas, Muhammed, PR #1 ile `main`'e alındı): debug APK gerçek telefonda (POCO X5 Pro 5G, Android 14, arm64) kuruldu; üç tam oyun dokunarak, modelsiz oynandı. Sekiz sorun bulundu, düzeltildi ve testlere eklendi. Başlıcaları: Android'de C# derlenmiyordu (C# 13); oyun yatay açılıyordu (artık **dikey**, 360×640); dokunmayla ses kaydırıcısı ve sayfa kaydırma çalışmıyordu; geri tuşu uygulamayı kapatıyordu; dikeyde oyun ekranı sığmıyordu; kamera deliği sayacın üstüne denk geliyordu. Not: Game `docs/android_g0.md`.
 
-**Devir paketi** (yol haritası 3.2): "Yedek desteyle baştan sona oynanabilen oyun (açılış, kaydırma, sonuç ekranı, 8 son)": var; masaüstünde ve Android telefonda. 2.8/G0 PR'ı birleşince `main`'de altın set destesiyle oynanır.
+**Devir paketi** (yol haritası 3.2): "Yedek desteyle baştan sona oynanabilen oyun (açılış, kaydırma, sonuç ekranı, 8 son)": var; masaüstünde ve Android telefonda, `main`'de altın set destesiyle.
 
 `[DOLDUR: Kara — kendi değerlendirmen, eklemek istediklerin]`
 
 ## Ne yarım kaldı, neden
 
-- **İnceleme:** H1–H2 ve 7 Kasım birleşmesi doğrudan `main`'e alındı; bağımsız PR incelemesi yapılmadı. Plan kutuları (1.7–2.9) bu yüzden işaretsiz. 2.8 ve G0, `muhammed` → `main` PR'ı ile Kara tarafından incelenecek.
+- **İnceleme:** H1–H2 ve 7 Kasım birleşmesi doğrudan `main`'e alındı; bağımsız PR incelemesi yapılmadı. Plan kutuları (1.7–2.9) bu yüzden işaretsiz. 2.8 ve G0, PR #1 ile 7 Kasım'da `main`'e alındı; Kara'nın incelemesi birleşmeden sonraya kaldı.
 - **İkinci bilgisayar (1.7):** "İki geliştiricinin bilgisayarında açılır" şartı. `[DOLDUR: Kara — main kendi bilgisayarında açıldı ve testler geçti mi?]`
 - **G0 Android denemesi:** H1'de yapılacaktı, dönemin son günü (7 Kasım) yapıldı; gecikmesi nedeniyle Android'de C# derlenmediği ancak şimdi görüldü. Release çıktısı (imza anahtarı ekip kararı) ve ikinci telefon 3.10'a kaldı.
 - **Sonraki dönemin işleri (yarım değil, plan gereği):** kayıt (3.9; "Kayıtlı Oyun" ekranı şimdilik boş), kazanma/rekor (3.8; `hedef_yil` hâlâ `null`), rol–konu seçimi (3.7), ses (4.8; ayar hazır, ses dosyası yok), sonlara özel görseller (4.7; şimdilik ortak taç).
@@ -56,7 +56,7 @@ Telefon (Android): `<godot-net> --headless --path game --export-debug "Android" 
 
 ## Sayılar
 
-- Test sahnesi: 10/10 başarılı, motor hatası yok. Başsız: H1 727, H2 1076, Menü 198 kontrol. Xvfb grafik: H1 763, H2 1127, Menü 226 kontrol (7 Kasım, `muhammed` dalı, G0 düzeltmeleriyle).
+- Test sahnesi: 10/10 başarılı, motor hatası yok. Başsız: H1 727, H2 1076, Menü 198 kontrol. Xvfb grafik: H1 763, H2 1127, Menü 226 kontrol (7 Kasım, `main` `b529fd7`).
 - Yedek deste: 600 kart (altın set 1.448 → oyuna uygun 1.345), 23 rolün hepsi, rol başına 26–27, hepsi 20–35 kelime.
 - Ekran boyutları (test): 1152×648, 360×640, 360×800 (dikey telefonun mantıksal ekranı), 640×360.
 - Android (G0): soğuk açılış ~5 sn, bellek ~270 MB, debug APK ~124 MB; tam oyun hep sağa 9 kararda bitti (masaüstü benzetimiyle aynı).
