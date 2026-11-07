@@ -28,6 +28,8 @@
 | O1 | Veri hazırlama (2.4) | İkisi | `ai/veri_hazirlama/hazirla.py` | Cum–Cmt | S1, S2, M5 |
 | O3 | Dönem 1 raporu | Mert (Sokul katkı) | `donem-1-yapay-zeka.md` | Paz | — |
 
+**Durum (7 Kasım):** S2 bitti. M5'in kodu bitti ve son veriyle eğitildi; Hugging Face'e yükleme, depo ve token belli olunca yapılacak. O1'de `kodla.py` hazır, `hazirla.py` bekleniyor. Temizlik şimdilik `ai/filtre/duzenle.py` ile yapılıyor (`kararlar.md` 7 Kasım). Rapor taslak. S1, S3 ve `hazirla.py` depoda henüz yok.
+
 ---
 
 ## O2 · Her akşam üretim + altın set (ikisi, bugünden itibaren)

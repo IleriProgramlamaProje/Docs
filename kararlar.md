@@ -144,3 +144,9 @@ Her karar: tarih · karar · neden. Yeni kararlar en alta eklenir. Haftalık top
 | Karar | Neden |
 | --- | --- |
 | **Oyunun adı BUYRUK** ("Kaydır & Karar Ver" çalışma adının yerine geçer). Ana menü, oyun ekranı başlığı ve Godot proje adı (`config/name`) BUYRUK'tur; eski adın geçtiği belgeler güncellenir | Oyun ekibinin BUYRUK menüleri Game `main`'e alındı (`657dbf4`); oyunda ve belgelerde tek ad kullanılsın |
+| **Tokenizer (M5):** BPE, 8000 kelime, büyük/küçük harf korunur, noktalama ayrı token, kart etiketleri özel token, her belgenin sonunda `<\|son\|>`. Ayrıntı: `AI/ai/tokenizer/egit_tokenizer.py` | Küçük modele yetecek dağarcık; etiket bölünürse model bozuk kart yazabilir; noktalama kelimeye yapışırsa her kelimenin noktalı hâli ayrı öğrenilir |
+| **`train.bin` biçimi:** art arda uint16 token numarası, belge sonunda `<\|son\|>` (`AI/ai/tokenizer/kodla.py`); `hazirla.py` bunu çağırır | 8000 kelimeye 16 bit yeter; dosya küçük kalır |
+| **Altın set cevabında malzeme satırı** (`KART n · Konuşan: … · Durum: …`, 2 Kasım): model her kartın malzemesini geri yazar | Birkaç sohbet aynı anda açıkken cevaplar ekrandaki pakete yanlış eşleşiyordu |
+| **Temizlik şimdilik `AI/ai/filtre/duzenle.py` ile yapılır.** Sınırlar: kart metni 20–50 kelime, karar 2–5 kelime, hikâye 90–150 kelime; aynı prompt ve aynı metin bir kez tutulur. Elenenler sebebiyle `silindi/` altına yazılır. **Açık:** S1 filtresiyle ilişkisi ve `yz_gorevleri.md`'deki 12–50, 1–6, 70–200 sınırlarıyla fark toplantıda karara bağlanacak | Temiz veri beklemesin; kart sınırları oyunla ve `kart_formati.md` ile aynı |
+| **5 Kasım tekrarları ham dosyadan çıkarıldı** (6 Kasım): `*_colab_surekli_1105` dosyalarında yalnız daha önce temize geçmeyen malzemeler kaldı (hikâye 1.912 → 104, kart 1.364 → 132) | Aynı malzemenin tekrarı sayıları şişiriyordu |
+
