@@ -13,6 +13,7 @@ Depo: [Game](https://github.com/IleriProgramlamaProje/Game) · Godot 4.7.2 .NET 
 - **Birleşme** (7 Kas, Muhammed, `main` `657dbf4`): `kara` + Assets teması. Çıkış animasyonunun karar kaybettirdiği hata, deste kartlarının `AddChild` hatası, kart yüksekliği ve dar ekran menü taşması düzeltildi. Klavyeyle karar (← → Enter), kalıcı ses/tam ekran ayarı, `MenuTesti` eklendi.
 - **2.8 · altın set destesi** (7 Kas, Muhammed, PR #1 ile `main`'e alındı, `b529fd7`): oyun altın setten seçilen 600 kartla açılır (`Veri/yedek_deste.json`). Üretici: `araclar/deste_olustur.py`. 2.9 bu desteyle uçtan uca test edildi.
 - **G0 · Android denemesi** (7 Kas, Muhammed, PR #1 ile `main`'e alındı): debug APK gerçek telefonda (POCO X5 Pro 5G, Android 14, arm64) kuruldu; üç tam oyun dokunarak, modelsiz oynandı. Sekiz sorun bulundu, düzeltildi ve testlere eklendi. Başlıcaları: Android'de C# derlenmiyordu (C# 13); oyun yatay açılıyordu (artık **dikey**, 360×640); dokunmayla ses kaydırıcısı ve sayfa kaydırma çalışmıyordu; geri tuşu uygulamayı kapatıyordu; dikeyde oyun ekranı sığmıyordu; kamera deliği sayacın üstüne denk geliyordu. Not: Game `docs/android_g0.md`.
+- **Birleşme 2** (8 Kas, Muhammed, PR #2): Kara'nın kayıt/yükleme, rekor ve deste kimliği çalışması `main`'e alındı ve telefonda denendi. Geri tuşu oyun ortasında kaydedip menüye döner, her hükümdarlık destenin rastgele bir olayından başlar, son ekranı rekoru gösterir. Not: Game `docs/android_g0.md` (8 Kasım bölümü).
 
 **Devir paketi** (yol haritası 3.2): "Yedek desteyle baştan sona oynanabilen oyun (açılış, kaydırma, sonuç ekranı, 8 son)": var; masaüstünde ve Android telefonda, `main`'de altın set destesiyle.
 
@@ -23,7 +24,7 @@ Depo: [Game](https://github.com/IleriProgramlamaProje/Game) · Godot 4.7.2 .NET 
 - **İnceleme:** H1–H2 ve 7 Kasım birleşmesi doğrudan `main`'e alındı; bağımsız PR incelemesi yapılmadı. Plan kutuları (1.7–2.9) bu yüzden işaretsiz. 2.8 ve G0, PR #1 ile 7 Kasım'da `main`'e alındı; Kara'nın incelemesi birleşmeden sonraya kaldı.
 - **İkinci bilgisayar (1.7):** "İki geliştiricinin bilgisayarında açılır" şartı. `[DOLDUR: Kara — main kendi bilgisayarında açıldı ve testler geçti mi?]`
 - **G0 Android denemesi:** H1'de yapılacaktı, dönemin son günü (7 Kasım) yapıldı; gecikmesi nedeniyle Android'de C# derlenmediği ancak şimdi görüldü. Release çıktısı (imza anahtarı ekip kararı) ve ikinci telefon 3.10'a kaldı.
-- **Sonraki dönemin işleri (yarım değil, plan gereği):** kayıt (3.9; "Kayıtlı Oyun" ekranı şimdilik boş), kazanma/rekor (3.8; `hedef_yil` hâlâ `null`), rol–konu seçimi (3.7), ses (4.8; ayar hazır, ses dosyası yok), sonlara özel görseller (4.7; şimdilik ortak taç).
+- **Sonraki dönemin işleri (yarım değil, plan gereği):** kazanma kuralı (3.8; kayıt ve rekor hazır, `hedef_yil` hâlâ `null`), rol–konu seçimi (3.7), ses (4.8; ayar hazır, ses dosyası yok), sonlara özel görseller (4.7; şimdilik ortak taç).
 
 ## Nasıl çalıştırılır
 
@@ -48,11 +49,9 @@ Telefon (Android): `<godot-net> --headless --path game --export-debug "Android" 
 
 ## Bilinen sorunlar
 
-- **Kart sırası:** Deste dosya sırasıyla dolaşır; her yeni oyun aynı kartlarla başlar. 3.7 kart seçici ile ele alınacak.
 - **Denge (ilk gözlem):** Altın set destesiyle hep sağı seçen oyun 9, hep solu seçen 19 kararda bitiyor (benzetim). Telefonda oynanan üç farklı oyunun üçü de "Para İsyanı" ile bitti; hazine çok hızlı tükeniyor. 4.9 denge testine girdi.
 - **Kural farkı:** Oyun ve `kart_formati.md` kart metnini 20–50, kararı 2–5 kelime kabul ediyor; YZ filtresi (`yz_gorevleri.md`) 12–50 ve 1–6 diyor. Bu yüzden 1.448 altın set kartının 103'ü oyuna giremedi. İki ekip tek kurala bağlamalı.
 - **Android:** Debug APK ~124 MB (.NET çalışma zamanı + görseller); release ve kırpma 3.10'da ölçülecek. Android derlemesi `net9.0`/C# 13 ile yapılır; `Game.csproj` dil sürümünü 13'e sabitler. Tek telefonda denendi.
-- **Oyun ortasında çıkış yok:** Geri tuşu ve "Ana Menüye Dön" yalnız hükümdar seçiminde ve sonda çalışır; onaylı çıkış kayıtla (3.9) birlikte düşünülmeli.
 
 ## Sayılar
 

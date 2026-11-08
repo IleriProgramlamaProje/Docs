@@ -16,11 +16,13 @@ Onaylanan maddeler `kararlar.md`'ye yazılır.
 
 ## Konuşulacaklar
 
-2. **Oyun ortasında geri tuşu.** Kart ve sonuç ekranında Android geri tuşu bilerek hiçbir şey yapmıyor; ilerleme kazara kaybolmasın diye. Ekrandaki "Ana Menüye Dön" de yalnız oyun sonunda açık.
+2. ✅ **8 Kasım'da çözüldü:** Kara'nın kayıt sistemi birleşince geri tuşu oyun ortasında "Kaydet ve Ana Menüye Dön" ile aynı işi yapıyor; ilerleme kaybolmuyor. Aşağıdaki not tarihçe için duruyor.
+
+   **Oyun ortasında geri tuşu.** Kart ve sonuç ekranında Android geri tuşu bilerek hiçbir şey yapmıyor; ilerleme kazara kaybolmasın diye. Ekrandaki "Ana Menüye Dön" de yalnız oyun sonunda açık.
    - Onaylı bir çıkış ("Oyundan çıkılsın mı?") istenirse kayıt özelliğiyle (3.9) birlikte konuşulmalı.
    - Diğer ekranlarda geri tuşu ana menüye döner; ana menüde uygulamadan çıkar.
 3. **Denge.** Telefonda oynanan üç oyunun üçü de "Para İsyanı" ile bitti: 9, 13 ve 18 kararda. Hazine çok hızlı tükeniyor.
-   - Ayrıca her oyun aynı kartla başlıyor, çünkü deste dosya sırasıyla dolaşıyor.
+   - ~~Ayrıca her oyun aynı kartla başlıyor~~ — 8 Kasım'da çözüldü: her hükümdarlık destenin rastgele bir olayından başlıyor. 8 Kasım'daki ikinci oyun "Halk İsyanı" ile bitti, yani sonlar çeşitleniyor; denge yine de ölçülmeli.
    - İlgili görevler: 4.9 denge testi ve 3.7 kart seçici.
 4. **Release APK için imza anahtarı.** Şimdilik yalnız debug APK var. 3.10'dan önce karar verilmeli:
    - anahtarı kim üretecek;
