@@ -150,3 +150,14 @@ Her karar: tarih · karar · neden. Yeni kararlar en alta eklenir. Haftalık top
 | **Temizlik şimdilik `AI/ai/filtre/duzenle.py` ile yapılır.** Sınırlar: kart metni 20–50 kelime, karar 2–5 kelime, hikâye 90–150 kelime; aynı prompt ve aynı metin bir kez tutulur. Elenenler sebebiyle `silindi/` altına yazılır. **Açık:** S1 filtresiyle ilişkisi ve `yz_gorevleri.md`'deki 12–50, 1–6, 70–200 sınırlarıyla fark toplantıda karara bağlanacak | Temiz veri beklemesin; kart sınırları oyunla ve `kart_formati.md` ile aynı |
 | **5 Kasım tekrarları ham dosyadan çıkarıldı** (6 Kasım): `*_colab_surekli_1105` dosyalarında yalnız daha önce temize geçmeyen malzemeler kaldı (hikâye 1.912 → 104, kart 1.364 → 132) | Aynı malzemenin tekrarı sayıları şişiriyordu |
 
+## 11 Kasım 2026
+
+| Karar | Neden |
+| --- | --- |
+| **Altın set kaldırıldı** (2 Kasım'daki "altın set herkesin kendi yapay zekâsıyla" kaydının yerine geçer). `AI/ai/altin_set/` sayfası ve `AI/data/altin_set/ham/` kartları depodan, altın set de `hazirla.py` karışımından çıktı (oranı hikâye ve karta dağıtıldı: %63 / %22 / BİLGEM %10 / edebiyat %5). Altın setin bir kısmının `val.bin`'e sızdığı hata düzeltildi: oranı 0 olan kaynak val'e de girmez | Kartlar Gemini, ChatGPT, Claude sohbetlerinde üretildi; bu servislerin şartları çıktıyla model eğitmeyi yasaklıyor ya da kısıtlıyor |
+| **Gemini kaldırıldı** (2 Kasım'daki "Gemini de kullanılır" kaydının yerine geçer): `uretim_gemini.ipynb` ve Gemini motoru depodan çıktı. Eğitim verisinin tamamı Gemma 4 12B üretimi | Gemini API şartları çıktıyla rakip model geliştirmeyi yasaklıyor; Gemma 4 Apache 2.0 |
+| **Sınav seti, ince ayar kartları ve oyunun yedek destesi** temiz Gemma kartlarından seçilir, ekip okuyup düzeltir. Oyunun mevcut 600 kartlık destesi altın setten seçilmişti; oyun ekibi Gemma kartlarıyla değiştirir | Altın set çıktı |
+| **Tokenizer bir kez yeniden eğitilip dondurulur** (yalnız temiz Gemma verisi), sonra `hazirla.py` yeniden çalıştırılır | 7 Kasım tokenizer'ı altın set metniyle eğitilmişti; eğitim başladıktan sonra tokenizer değişmez |
+| **Üretim:** `KART_PAYI = 0.25` (hikâye:kart ≈ 2:1); her hesap farklı `KISI` adı | `hazirla.py` sabit oranla karıştırıyor, kart azalırsa toplam veri kısılır; aynı ad aynı promptları üretir |
+| **Model eğitimleri sınavlardan sonra başlar** (~21 Kasım): 1M, 10M, 30M aynı veri ve tokenizer ile. Karar noktası 25 Kasım'dan **~2 Aralık**'a kayar | Sınav dönemi; o zamana kadar gece üretimiyle veri büyür |
+
