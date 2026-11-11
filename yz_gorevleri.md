@@ -20,7 +20,7 @@
 
 | # | Görev | Kim | Dosya | Ne zamana | Bağlı olduğu |
 |---|---|---|---|---|---|
-| O2 | Her akşam üretim + altın set | İkisi | `uretim.ipynb`, altın set sitesi | **bugünden itibaren** | — |
+| O2 | Her akşam üretim | İkisi | `uretim.ipynb` | **bugünden itibaren** | — |
 | S1 | Filtre (1.5) | Sokul | `ai/filtre/filtre.py` | Çar | — |
 | S2 | Kart biçimi dönüştürücüsü (1.1) | Mert | `ai/ortak/kart_bicimi.py` | Çar | — |
 | S3 | Hazır veriler (2.2) | Sokul | `data/edebiyat/`, `data/README.md` | Per–Cum | — |
@@ -32,9 +32,9 @@
 
 ---
 
-## O2 · Her akşam üretim + altın set (ikisi, bugünden itibaren)
+## O2 · Her akşam üretim (bugünden itibaren)
 
-Öğretmen olarak Gemma 4 12B (Colab + Kaggle) ve Gemini kullanılır (2 Kasım kararı).
+Öğretmen yalnızca **Gemma 4 12B** (Colab + Kaggle). 11 Kasım: Gemini ve altın set kaldırıldı (yasal sebep, `kararlar.md`).
 
 ### Hazırlık (bir kere)
 1. huggingface.co'da hesap aç / giriş yap. `google/gemma-4-12B-it` Apache 2.0, onay kutusu yok.
@@ -46,7 +46,7 @@
    (Colab'ın GitHub listesinde organizasyon görünmeyebilir; bu bağlantı yeterli, depo herkese açık.)
 2. **Runtime → Change runtime type → T4 GPU → Save.**
 3. Sol çubukta 🔑 **Secrets → Add new secret**: ad `HF_TOKEN`, değer token'ın, **Notebook access** açık.
-4. 1. hücre: `KISI = 'mert'` / `'sokul'` (küçük harf, iki kişide farklı). Diğer ayarlar varsayılan kalır (`KART_PAYI = 0.4`: sürenin %40'ı kart, kalanı hikâye).
+4. 1. hücre: `KISI = 'mert'` / `'sokul'` (küçük harf, iki kişide farklı). Diğer ayarlar varsayılan kalır (`KART_PAYI = 0.25`: sürenin %25'i kart, kalanı hikâye; hikâye:kart ≈ 2:1).
 5. **Run all** → "Not authored by Google" uyarısında **Run anyway** → Drive iznini ver → Secrets erişimi sorarsa **Grant access**.
 6. Model 5–10 dk'da açılır. "5 · Kart üret" hücresinde **saatte ~X kart** satırı çıkınca gruba at.
 7. Dosyalar Drive'da `MyDrive/kaydir_veri/ham/`. Koparsa yine **Run all**: kaldığı yerden devam eder.
@@ -57,26 +57,9 @@
 1. **+ Create → New Notebook → File → Import Notebook** → GitHub adresi: `https://github.com/IleriProgramlamaProje/AI/blob/main/ai/veri_uretimi/uretim.ipynb`
 2. Sağ panel: **Accelerator: GPU T4 x2**, **Internet: On**.
 3. **Add-ons → Secrets → Add**: `HF_TOKEN`, deftere bağla (gece modunda zorunlu).
-4. 1. hücre: `KISI` = kendi adın (Colab'la aynı ad olabilir; dosya adına ortam eklenir).
+4. 1. hücre: `KISI` = kendi adın. **Her hesap farklı ad kullanmalı**; aynı ad aynı promptları üretir (Colab'la aynı ad olabilir, dosya adına ortam eklenir).
 5. **Save Version → Save & Run All (Commit) → Save.** Sekmeyi kapatabilirsin; 10,5 saatte kendi durur.
 6. Sabah: o sürümü aç → **Output** → `kaydir_veri.zip`'i indir (oturum kapanınca silinir), Drive'a `kaydir_veri/ham/` altına koy.
-
-### Gemini
-Gemini için ayrı defter var: `uretim_gemini.ipynb` (GPU gerekmez). Colab'da açmak için: https://colab.research.google.com/github/IleriProgramlamaProje/AI/blob/main/ai/veri_uretimi/uretim_gemini.ipynb
-1. aistudio.google.com → **Get API key** → **Create API key** → anahtarı kopyala.
-2. Colab'da 🔑 Secrets'a ya da Kaggle'da *Add-ons → Secrets*'a `GEMINI_API_KEY` adıyla ekle, **Notebook access** açık. (Colab'daki *Gemini API keys* düğmesiyle içe aktarılan `GOOGLE_API_KEY` de olur.)
-3. 1. hücrede `KISI` = kendi adın (model: `GEMINI_MODEL`, varsayılan `gemini-flash-latest`). Colab'da çalışma zamanı CPU yeterli; Kaggle'da GPU seçmeye gerek yok, Internet açık olmalı.
-4. **Run all** (Kaggle'da gece için *Save & Run All*). Dosyalar `kart_<ad>_<ortam>_<oturum>_gemini.jsonl` adıyla yazılır, Gemma dosyalarına karışmaz; filtre (S1) ikisini birden okur.
-5. Ücretsiz kotada dakikalık/günlük sınır var: kota dolunca motor bekleyip yeniden dener, günlük sınır biterse defter durur, ertesi gün **Run all** kaldığı yerden devam eder.
-
-### Altın set (her gün, kendi yapay zekânla)
-Sayfa: claude.ai'de **Altın Set Prompt Üretici** (kaynak kodu `AI/ai/altin_set/`). Hedef kişi başı günde 1000+ kart.
-1. **Üret** sekmesinde kart sayısını seç (30, 50 ya da 100), **Prompt'u kopyala**.
-2. Claude, Gemini, ChatGPT… hangisini kullanıyorsan web sohbetine yapıştır. (Sayfadaki **Claude ile üret** düğmesi de olur.)
-3. Cevabı sayfadaki kutuya yapıştır, **Hangi model**'i seç. Kartlar otomatik kontrol edilir: yeşil geçti, sarı uyarılı (kaydedilir), kırmızı hatalı (kaydedilmez).
-4. **Kaydet** → **Yeni malzeme** ile sonraki paket. Okuma (iyi/at) yok.
-5. Günün sonunda **Veri** sekmesinden indir: oyun JSON'u, eğitim metni, ham JSONL.
-6. Ham kartlarda (Gemma/Gemini) gördüğün hataları not et: filtrenin (S1) kurallarına girer.
 
 ## Sokul
 
@@ -124,13 +107,13 @@ Sayfa: claude.ai'de **Altın Set Prompt Üretici** (kaynak kodu `AI/ai/altin_set
 ## Mert
 
 ### S2 · Kart biçimi dönüştürücüsü (1.1)
-**Neden:** Öğretmen satırlı yazıyor. Model ise `kart_formati.md` 2. bölümdeki etiketli metinle eğitilecek, oyun ve altın set sitesi 3. bölümdeki JSON'u okuyacak.
+**Neden:** Öğretmen satırlı yazıyor. Model ise `kart_formati.md` 2. bölümdeki etiketli metinle eğitilecek, oyun 3. bölümdeki JSON'u okuyacak.
 
 **Ne yapılacak** (`ai/ortak/kart_bicimi.py`):
 - `egitim_metni(kart, malzeme)`: S1'in temiz kaydından etiketli metin üretir. Önce durum satırı: `<yonetim:50> <halk:50> <para:60> <ordu:35> <konu:…> <konuşan:…>`. Sonra `<kart> … </kart>`.
   - Etkileri hep aynı sırada yaz (yonetim, halk, para, ordu) ki model tutarlı öğrensin.
   - `malzeme.durum` anahtarları görünen adlardır (`Yönetim`, `Halk`…); etikette küçük harf ASCII kullan (`ayarlar.GOSTERGELER`).
-- `oyun_json(kart, malzeme)`: 3. bölümdeki JSON. Altın set sitesine aktarmak için de bu kullanılır.
+- `oyun_json(kart, malzeme)`: 3. bölümdeki JSON.
 - `metinden_karta(metin)`: Etiketli metinden karta geri çevirir. Modelin çıktısını okurken bu kullanılacak, biçim bozuksa hata versin.
 - **Konuşan anahtarı:** `tema.json` → `karakterler[].anahtar` (`akinci_beyi`).
 - **Etki:** `++` → 10, `---` → -15 (`ayarlar.ETKI_KADEMELERI`).
@@ -167,13 +150,13 @@ Pazar günü Mert yazar. Sokul 2.2'yi ve üretim sayılarını ekler. Raporda ko
 | Gün | Mert | Sokul |
 |---|---|---|
 | Pzt 2 | PR'ı gönder · **Akşam üretim** (Colab + Kaggle) | PR'ı incele, birleştir · Kaggle hesabı (telefon onayı, `HF_TOKEN`) · **Akşam üretim** |
-| Sal 3 | Altın set (kendi yapay zekânla) · S2 | Altın set (kendi yapay zekânla) · S1 |
+| Sal 3 | S2 | S1 |
 | Çar 4 | Toplantı: ilk günün sayıları · S2 bitir | Toplantı · S1 bitir |
 | Per 5 | M5 tokenizer | İlk veriyi filtreden geçir, rapor · S3 |
 | Cum 6 | M5 · O1'e tokenizer'ı bağla | S3 · O1 iskeleti |
 | Cmt 7 | Tokenizer'ı yeniden eğit · `train.bin` | Filtre raporlarını topla: en sık eleme sebepleri |
 | Paz 8 | 📄 Rapor | Rapora katkı |
 
-**Her akşam ikiniz de:** Colab + Kaggle üretimi. **Her gün:** altın set (kendi yapay zekânla).
+**Her akşam ikiniz de:** Colab + Kaggle üretimi.
 
 **Hedef:** Perşembe günü ilk günün hızına göre kesinleşir. Kaba tahmin hafta sonuna kadar **~10 bin ham kart + ~20 bin ham hikâye**. Filtreden yaklaşık 2/3'ü geçer.
