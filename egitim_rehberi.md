@@ -6,6 +6,44 @@ Veri, tokenizer ve eğitim kodu hazır. Kod yazmadan, Colab'da defteri çalışt
 
 ---
 
+## 0. Durum (26 Kasım)
+
+### Bugün yapılan ve depoya eklenenler
+| Ne | Depo / yer | Not |
+|---|---|---|
+| Sokul'un filtre PR'ı (AI #1) ve yasak liste PR'ı (Docs #1) main'de | AI, Docs | Kartta kelime kuralı kalktı; "bakan", "güvenlik" artık yasak değil |
+| Filtre bütün ham veride çalıştırıldı | (depoda değil, bkz. aşağı) | 147.794 kayıt → kart 43.462 (%93,5), hikâye 73.472 (%72,5). Kelime kuralı kapalıyken hikâye 92.564 (%91,3) |
+| **Tokenizer yeniden eğitildi ve donduruldu** | `AI/data/uretilen/egitim/tokenizer.json` | 121.389 belge, 8000 parça. Yeni: tırnak/kesme/tire tek biçim, `<istiyor:…>` etiketleri, 20 boş `<yedek_N>` |
+| Kart biçimine `<istiyor:sol\|sag\|belirsiz>` | `AI/ai/ortak/kart_bicimi.py` | İsteğe bağlı; yazılır ve geri okunur |
+| `hazirla.py --istedigi` | `AI/ai/veri_hazirlama/hazirla.py` | Saray kartlarına etiket ekler |
+| Tokenizer temiz kartı doğrudan okuyor | `AI/ai/tokenizer/egit_tokenizer.py` | Ayrı çevirme adımı kalktı |
+| Defterde `VERI_ADI` | `AI/ai/egitim/egitim.ipynb` | Çıktı `modeller/<boyut>_<veri>/`, eğitimler birbirinin üstüne yazmaz |
+| **Üç eğitim verisi** | `AI/data/uretilen/egitim/duz/`, `istedigi/`, `kelimesiz/` | 15,4 / 15,4 / 17,2 M token, edebiyat oranı %1,5 |
+| Testler | `AI/ai/testler/` | 84 → 98 test, hepsi geçiyor (`test_model.py` torch gerektirir, yerelde çalıştırılmadı) |
+| Bu rehber, 26 Kasım kararları | `Docs/egitim_rehberi.md`, `Docs/kararlar.md` | |
+
+### Depoya eklenmeyenler
+| Ne | Neden | Gerekirse |
+|---|---|---|
+| Filtre çıktıları (`temiz/`, `elenen/`, rapor; ~750 MB) | Çok büyük, ham veriden birkaç dakikada yeniden üretilir | 9. bölümdeki komutlar |
+| Eski 7 Kasım tokenizer'ı | Altın set metniyle eğitilmişti, artık kullanılmaz | Yalnız Mert'in bilgisayarında yedek |
+| Eğitilmiş model | Henüz eğitim yapılmadı | Eğitimler Drive'a kaydeder (`kaydir_veri/modeller/`) |
+| Hugging Face'e tokenizer yüklemesi | Depo/token kararı verilmedi; tokenizer zaten Git'te | `egit_tokenizer.py --hf-depo …` |
+
+### Henüz yapılmayanlar ve açık kararlar
+- **Eğitimler:** hiçbir model eğitilmedi. Takvime göre ~21 Kasım'da başlayacaktı, 5 gün gerideyiz.
+- **Hikâyede kelime kuralı** (3/3 mü, kapalı mı, 2/3 mü): `duz` ↔ `kelimesiz` 1M sonucuna göre karar verilecek. 2/3 seçeneği için veri henüz üretilmedi.
+- **istedigi etiketi işe yarıyor mu:** `ornek_uret.py` modele `<istiyor:…>` vermiyor, bu yüzden etiketin etkisi otomatik ölçülmüyor (7. bölüm). Gerekirse `--istiyor` seçeneği eklenecek. Etiketlerde Sol ağırlığı var (~%70).
+- **Sınav seti, ince ayar kartları, oyunun yedek destesi:** temiz Gemma kartlarından seçilip okunacak (11 Kasım kararı), başlamadı.
+
+### Denenecekler (özet, ayrıntı 6. bölüm)
+1. **1M × 3 veri** (`duz`, `istedigi`, `kelimesiz`): hat çalışıyor mu, kelime kuralı ve istedigi etiketi fark yaratıyor mu.
+2. **10M**, aşama 1'in en iyi verisiyle.
+3. **30M**, en iyi veriyle.
+4. **Karar noktası (~2 Aralık):** 30M yeterli mi, 10M mi, yoksa B planı (hazır Türkçe modele LoRA) mı.
+
+---
+
 ## 1. Hazır olanlar
 
 | Ne | Nerede |
