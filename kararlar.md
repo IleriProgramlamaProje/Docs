@@ -161,3 +161,12 @@ Her karar: tarih · karar · neden. Yeni kararlar en alta eklenir. Haftalık top
 | **Üretim:** `KART_PAYI = 0.25` (hikâye:kart ≈ 2:1); her hesap farklı `KISI` adı | `hazirla.py` sabit oranla karıştırıyor, kart azalırsa toplam veri kısılır; aynı ad aynı promptları üretir |
 | **Model eğitimleri sınavlardan sonra başlar** (~21 Kasım): 1M, 10M, 30M aynı veri ve tokenizer ile. Karar noktası 25 Kasım'dan **~2 Aralık**'a kayar | Sınav dönemi; o zamana kadar gece üretimiyle veri büyür |
 
+
+## 26 Kasım 2026
+
+| Karar | Neden |
+| --- | --- |
+| **Tokenizer donduruldu:** temiz Gemma verisi (73.472 hikâye + 43.462 kart) + BİLGEM + edebiyat, 8000 parça. Yeni: tırnak/kesme/tire tek biçim (“ ” « » → ", ’ → ', — – → -), `<istiyor:sol\|sag\|belirsiz>` etiketleri, 20 boş `<yedek_N>` etiketi. `AI/data/uretilen/egitim/tokenizer.json` | 11 Kasım kararı (altın setsiz yeniden eğit, sonra dondur). Yedek etiketler: dondurulduktan sonra yeni etiket gerekirse numaralar kaymasın |
+| **Karışımda edebiyat %1,5** (`hazirla.py --oran edebiyat=0.015`) | Edebiyat ~0,29 M token; %5'le toplam 5,5 M'de kalıyordu, %1,5'le ~15–17 M token ve edebiyatın tamamı yine giriyor |
+| **Üç eğitim verisi denenecek:** `duz` (kelime kuralı açık), `istedigi` (saray kartlarında danışmanın istediği karar etiketi), `kelimesiz` (hikâyede kelime kuralı kapalı). Veri depoda: `AI/data/uretilen/egitim/` | Kelime kuralı ve istedigi etiketinin işe yarayıp yaramadığı 1M denemesiyle görülsün. Rehber: `egitim_rehberi.md` |
+| **Eğitimleri YZ ekibi yapar** (dönem 3: Kara + Muhammet), rehbere göre | Mert bu dönem oyun başkanı |

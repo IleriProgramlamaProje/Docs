@@ -10,7 +10,7 @@ Türk tarzı krallıkta geçen kaydırmalı karar oyunu. Hedef, kartları ekibin
 
 Model, tokenizer, filtre, kart sunucusu ve oynanabilir APK henüz tamamlanmış değildir. Belgelerde haftası belirtilen dosyalar çoğunlukla planlanan dosyalardır.
 
-Başlangıç sırası: [kurulum](kurulum.md) → [repo rehberi](repo_rehberi.md) → [kart biçimi](kart_formati.md) → [yol haritası](yol_haritasi.md). Güncel oyun uygulama görevleri [Game planında](https://github.com/IleriProgramlamaProje/Game/blob/main/docs/oyun_gelistirme_plani.md).
+Başlangıç sırası: [kurulum](kurulum.md) → [repo rehberi](repo_rehberi.md) → [kart biçimi](kart_formati.md) → [yol haritası](yol_haritasi.md). Model eğitimi: [eğitim rehberi](egitim_rehberi.md). Güncel oyun uygulama görevleri [Game planında](https://github.com/IleriProgramlamaProje/Game/blob/main/docs/oyun_gelistirme_plani.md).
 
 Ürün kuralları ve görev takvimi korunur. Eski motor araştırmaları `arsiv/`, geçmiş kararlar ve deneme raporları kendi tarihleriyle tutulur. Godot geçişi mevcut kodun durumudur; ekip/öğretmen teyidi Game planında açık takip maddesidir.
 
